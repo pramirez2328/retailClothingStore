@@ -5,6 +5,7 @@ import MenCategory from './components/MenCategory/Men';
 import WomenCategory from './components/WomenCategory/Women';
 import Furniture from './components/Furniture/Furniture';
 import HomeDecoration from './components/HomeDecoration/HomeDecoration';
+import Footer from './components/Footer/Footer';
 import './App.css';
 // import { useEffect } from 'react';
 
@@ -22,14 +23,19 @@ function App() {
 
   return (
     <Router>
-      <Header />
-      <Routes>
-        <Route path='/' element={<Home />} />
-        <Route path='/category-men' element={<MenCategory />} />
-        <Route path='/category-women' element={<WomenCategory />} />
-        <Route path='/category-furniture' element={<Furniture />} />
-        <Route path='/category-home_decoration' element={<HomeDecoration />} />
-      </Routes>
+      <div className='app'>
+        <Header />
+        <main className='content'>
+          <Routes>
+            <Route path='/' element={<Home />} />
+            <Route path='/category-men' element={<MenCategory />} />
+            <Route path='/category-women' element={<WomenCategory />} />
+            <Route path='/category-furniture' element={<Furniture />} />
+            <Route path='/category-home_decoration' element={<HomeDecoration />} />
+          </Routes>
+        </main>
+        <Footer />
+      </div>
     </Router>
   );
 }
