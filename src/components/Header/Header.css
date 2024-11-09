@@ -1,33 +1,94 @@
-header .navbar {
-  background-color: #d51a01 !important;
-  padding: 0.8rem 1.7rem;
+.custom-container {
+  padding: 1rem;
+  border-bottom: #c70000 solid 5px;
 }
 
-a.nav-link {
-  color: white;
-  font-size: 1.1rem;
+#brand-logo {
+  width: 12rem;
+  height: 6rem;
+  margin-right: 2rem;
 }
 
-#title {
-  font-size: 2.4rem;
-  color: white;
-  text-shadow: 2px 2px 2px #000;
+.brand {
+  text-decoration: none;
 }
 
+.custom-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Toggle button for hamburger menu */
+.toggler {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.toggler-icon {
+  display: inline-block;
+  width: 25px;
+  height: 3px;
+  background-color: #000000;
+  margin: 5px 0;
+  transition: background-color 0.3s;
+}
+
+/* Navigation menu */
+.menu {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.nav-list {
+  list-style-type: none;
+  display: flex;
+  gap: 1.5rem;
+}
+
+.nav-item a {
+  font-size: 1rem;
+  text-decoration: none;
+  color: black;
+}
+
+.nav-item a:hover {
+  color: #c70000;
+  transition: color 0.3s;
+}
+
+/* Shopping cart icon */
 #cart {
-  width: 2.7rem;
-  height: 2.7rem;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  margin-right: 2rem;
 }
 
-.navbar-collapse {
-  display: block;
-}
+/* Responsive design for smaller screens */
+@media (max-width: 768px) {
+  .menu {
+    display: none;
+    flex-direction: column;
+    gap: 1rem;
+    position: absolute;
+    top: 60px;
+    left: 0;
+    right: 0;
+    background-color: #ffffff;
+    padding: 1rem;
+    border-top: 1px solid #ddd;
+  }
 
-/* Apply flex layout only on larger screens */
-@media (min-width: 990px) {
-  .navbar-collapse {
-    display: flex !important;
-    justify-content: space-between;
-    align-items: center;
+  .menu-open {
+    display: flex;
+  }
+
+  .toggler {
+    display: flex;
+    flex-direction: column;
   }
 }

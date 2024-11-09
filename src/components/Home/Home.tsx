@@ -6,7 +6,7 @@ function Home() {
     <section>
       <div className='video-container'>
         <h3 className='slogan'>
-          Unleash Your Style, Perfect the Fit –{' '}
+          Unleash Your Style, Perfect the Fit <br />
           <span style={{ fontFamily: 'cursive' }}>Discover, Embrace, Flaunt.</span>
         </h3>
 

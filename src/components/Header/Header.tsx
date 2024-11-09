@@ -1,51 +1,61 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import cart from '../../assets/cart.png';
+import cart from '../../assets/cart.svg';
+import logo from '../../assets/logo.png';
+
 import './Header.css';
 
 function Header() {
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setMenuOpen(!menuOpen);
+  };
+
   return (
     <header>
-      <nav className='navbar navbar-expand-lg bg-body-tertiary'>
-        <div className='container-fluid'>
-          <Link className='navbar-brand' to='/'>
-            <h2 id='title'>FitStyle</h2>
-          </Link>
+      <nav className='custom-navbar'>
+        <div className='custom-container'>
           <button
-            className='navbar-toggler'
+            className='toggler'
             type='button'
-            data-bs-toggle='collapse'
-            data-bs-target='#navbarNav'
+            onClick={toggleMenu}
             aria-controls='navbarNav'
-            aria-expanded='false'
+            aria-expanded={menuOpen}
             aria-label='Toggle navigation'
           >
-            <span className='navbar-toggler-icon'></span>
+            <span className='toggler-icon'></span>
+            <span className='toggler-icon'></span>
+            <span className='toggler-icon'></span>
           </button>
-          <div className='collapse navbar-collapse' id='navbarNav'>
-            <ul className='navbar-nav'>
+          <div className={`menu ${menuOpen ? 'menu-open' : ''}`} id='navbarNav'>
+            <Link className='brand' to='/'>
+              <img id='brand-logo' src={logo} alt='brand logo' />
+            </Link>
+            <ul className='nav-list'>
               <li className='nav-item'>
-                <Link className='nav-link' to='/category-men'>
+                <Link className='nav-link' to='/category-men' onClick={() => setMenuOpen(false)}>
                   Men
                 </Link>
               </li>
               <li className='nav-item'>
-                <Link className='nav-link' to='/category-women'>
+                <Link className='nav-link' to='/category-women' onClick={() => setMenuOpen(false)}>
                   Women
                 </Link>
               </li>
               <li className='nav-item'>
-                <Link className='nav-link' to='/category-furniture'>
+                <Link className='nav-link' to='/category-furniture' onClick={() => setMenuOpen(false)}>
                   Furniture
                 </Link>
               </li>
               <li className='nav-item'>
-                <Link className='nav-link' to='/category-home_decoration'>
-                  Home Decoration
+                <Link className='nav-link' to='/category-home_decoration' onClick={() => setMenuOpen(false)}>
+                  Home-Decoration
                 </Link>
               </li>
             </ul>
-            <img id='cart' src={cart} alt='Shopping Cart' />
           </div>
+          <img id='cart' src={cart} alt='Shopping Cart' />
         </div>
       </nav>
     </header>
