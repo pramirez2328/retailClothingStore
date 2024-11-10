@@ -7,20 +7,8 @@ import Furniture from './components/Furniture/Furniture';
 import HomeDecoration from './components/HomeDecoration/HomeDecoration';
 import Footer from './components/Footer/Footer';
 import './App.css';
-// import { useEffect } from 'react';
 
 function App() {
-  // https://dummyjson.com/
-  // const apiCall = async () => {
-  //   fetch('https://dummyjson.com/products/categories')
-  //     .then((res) => res.json())
-  //     .then((json) => console.log(json));
-  // };
-
-  // useEffect(() => {
-  //   apiCall();
-  // }, []);
-
   return (
     <Router>
       <div className='app'>

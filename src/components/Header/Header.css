@@ -1,6 +1,6 @@
 .custom-container {
   padding: 1rem;
-  border-bottom: #c70000 solid 5px;
+  border-bottom: rgb(255, 36, 73) solid 7px;
 }
 
 #brand-logo {
@@ -56,7 +56,7 @@
 }
 
 .nav-item a:hover {
-  color: #c70000;
+  color: rgb(255, 36, 73);
   transition: color 0.3s;
 }
 
