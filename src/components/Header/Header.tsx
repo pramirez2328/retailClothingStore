@@ -28,32 +28,34 @@ function Header() {
             <span className='toggler-icon'></span>
             <span className='toggler-icon'></span>
           </button>
-          <div className={`menu ${menuOpen ? 'menu-open' : ''}`} id='navbarNav'>
+          <div className='menu-container'>
             <Link className='brand' to='/'>
               <img id='brand-logo' src={logo} alt='brand logo' />
             </Link>
-            <ul className='nav-list'>
-              <li className='nav-item'>
-                <Link className='nav-link' to='/category-men' onClick={() => setMenuOpen(false)}>
-                  Men
-                </Link>
-              </li>
-              <li className='nav-item'>
-                <Link className='nav-link' to='/category-women' onClick={() => setMenuOpen(false)}>
-                  Women
-                </Link>
-              </li>
-              <li className='nav-item'>
-                <Link className='nav-link' to='/category-furniture' onClick={() => setMenuOpen(false)}>
-                  Furniture
-                </Link>
-              </li>
-              <li className='nav-item'>
-                <Link className='nav-link' to='/category-home_decoration' onClick={() => setMenuOpen(false)}>
-                  Home-Decoration
-                </Link>
-              </li>
-            </ul>
+            <div className={`menu ${menuOpen ? 'menu-open' : ''}`} id='navbarNav'>
+              <ul className='nav-list'>
+                <li className='nav-item'>
+                  <Link className='nav-link' to='/category-men' onClick={() => setMenuOpen(false)}>
+                    Men
+                  </Link>
+                </li>
+                <li className='nav-item'>
+                  <Link className='nav-link' to='/category-women' onClick={() => setMenuOpen(false)}>
+                    Women
+                  </Link>
+                </li>
+                <li className='nav-item'>
+                  <Link className='nav-link' to='/category-furniture' onClick={() => setMenuOpen(false)}>
+                    Furniture
+                  </Link>
+                </li>
+                <li className='nav-item'>
+                  <Link className='nav-link' to='/category-home_decoration' onClick={() => setMenuOpen(false)}>
+                    Home-Decoration
+                  </Link>
+                </li>
+              </ul>
+            </div>
           </div>
           <img id='cart' src={cart} alt='Shopping Cart' />
         </div>

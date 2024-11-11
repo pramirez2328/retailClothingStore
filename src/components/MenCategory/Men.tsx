@@ -18,10 +18,10 @@ function Men() {
       const shoesResponse: ProductsResponse = await manShoes();
       setShoes(shoesResponse.products);
 
-      // Introduce a 2-second delay before hiding the loading screen
+      // Introduce a 1-second delay before hiding the loading screen
       setTimeout(() => {
         setLoading(false);
-      }, 2000);
+      }, 1000);
     };
 
     fetchData();
