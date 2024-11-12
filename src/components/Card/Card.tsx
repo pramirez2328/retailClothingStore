@@ -1,10 +1,16 @@
 import { Product } from '../../types';
-
+import { useNavigate } from 'react-router-dom';
 import './Card.css';
 
-function Card({ product }: { product: Product }) {
+function Card({ product, category }: { product: Product; category: string }) {
+  const navigate = useNavigate();
+
+  const goToProductDetail = () => {
+    navigate(`/${category}/${product.id}`, { state: { product } });
+  };
+
   return (
-    <div className='card'>
+    <div className='card' onClick={goToProductDetail} style={{ cursor: 'pointer' }}>
       <img className='product-image' src={product.images[0]} alt={product.title} />
       <h3 className='title'>{product.title}</h3>
       <p className='product-info brand'>{product.brand}</p>

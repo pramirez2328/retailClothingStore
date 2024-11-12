@@ -5,6 +5,7 @@ import MenCategory from './components/MenCategory/Men';
 import WomenCategory from './components/WomenCategory/Women';
 import Furniture from './components/Furniture/Furniture';
 import HomeDecoration from './components/HomeDecoration/HomeDecoration';
+import ProductDetailPage from './components/ProductDetailPage/ProductDetailPage';
 import Footer from './components/Footer/Footer';
 import './App.css';
 
@@ -17,6 +18,7 @@ function App() {
           <Routes>
             <Route path='/' element={<Home />} />
             <Route path='/category-men' element={<MenCategory />} />
+            <Route path='/category-men/:id' element={<ProductDetailPage />} />
             <Route path='/category-women' element={<WomenCategory />} />
             <Route path='/category-furniture' element={<Furniture />} />
             <Route path='/category-home_decoration' element={<HomeDecoration />} />

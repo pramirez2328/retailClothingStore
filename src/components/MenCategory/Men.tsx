@@ -59,8 +59,8 @@ function Men() {
           </div>
           <div id='man-products'>
             {toggleCategory
-              ? shirts.map((product) => <Card key={product.id} product={product} />)
-              : shoes.map((product) => <Card key={product.id} product={product} />)}
+              ? shirts.map((product) => <Card key={product.id} product={product} category='category-men' />)
+              : shoes.map((product) => <Card key={product.id} product={product} category='category-men' />)}
           </div>
         </>
       )}
