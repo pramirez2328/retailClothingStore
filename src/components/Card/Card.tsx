@@ -4,9 +4,10 @@ import './Card.css';
 
 function Card({ product, category }: { product: Product; category: string }) {
   const navigate = useNavigate();
-
+  const params = category.split('-');
+  console.log(params);
   const goToProductDetail = () => {
-    navigate(`/${category}/${product.id}`, { state: { product } });
+    navigate(`././${product.id}`, { state: { product } });
   };
 
   return (

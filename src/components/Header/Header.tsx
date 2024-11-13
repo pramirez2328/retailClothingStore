@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import cart from '../../assets/cart.svg';
 import logo from '../../assets/logo.png';
 
@@ -7,18 +7,24 @@ import './Header.css';
 
 function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const navigate = useNavigate();
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
+  };
+
+  const navigateToCategory = (category: string, items?: string[]) => {
+    setMenuOpen(false);
+    navigate(`/category/${category}`, { state: { items } });
   };
 
   return (
     <header>
       <nav className='custom-navbar'>
         <div className='custom-container'>
-          <button
+          <a
             className='toggler'
-            type='button'
+            type='a'
             onClick={toggleMenu}
             aria-controls='navbarNav'
             aria-expanded={menuOpen}
@@ -27,7 +33,7 @@ function Header() {
             <span className='toggler-icon'></span>
             <span className='toggler-icon'></span>
             <span className='toggler-icon'></span>
-          </button>
+          </a>
           <div className='menu-container'>
             <Link className='brand' to='/'>
               <img id='brand-logo' src={logo} alt='brand logo' />
@@ -35,24 +41,24 @@ function Header() {
             <div className={`menu ${menuOpen ? 'menu-open' : ''}`} id='navbarNav'>
               <ul className='nav-list'>
                 <li className='nav-item'>
-                  <Link className='nav-link' to='/category-men' onClick={() => setMenuOpen(false)}>
+                  <a className='nav-link' onClick={() => navigateToCategory('men', ['tshirts', 'shoes'])}>
                     Men
-                  </Link>
+                  </a>
                 </li>
                 <li className='nav-item'>
-                  <Link className='nav-link' to='/category-women' onClick={() => setMenuOpen(false)}>
+                  <a className='nav-link' onClick={() => navigateToCategory('women')}>
                     Women
-                  </Link>
+                  </a>
                 </li>
                 <li className='nav-item'>
-                  <Link className='nav-link' to='/category-furniture' onClick={() => setMenuOpen(false)}>
+                  <a className='nav-link' onClick={() => navigateToCategory('furniture')}>
                     Furniture
-                  </Link>
+                  </a>
                 </li>
                 <li className='nav-item'>
-                  <Link className='nav-link' to='/category-home_decoration' onClick={() => setMenuOpen(false)}>
+                  <a className='nav-link' onClick={() => navigateToCategory('home_decoration')}>
                     Home-Decoration
-                  </Link>
+                  </a>
                 </li>
               </ul>
             </div>

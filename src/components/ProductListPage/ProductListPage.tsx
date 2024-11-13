@@ -1,15 +1,20 @@
 import { useEffect, useState } from 'react';
 import { manShirts, manShoes } from '../../api';
+import { useLocation } from 'react-router-dom';
 import Card from '../Card/Card';
 import Loading from '../Loading/Loading';
-import './Men.css';
+import './ProductListPage.css';
 import { Product, ProductsResponse } from '../../types';
 
-function Men() {
+function ProductListPage() {
   const [shirts, setShirts] = useState<Product[]>([]);
   const [shoes, setShoes] = useState<Product[]>([]);
   const [toggleCategory, setToggleCategory] = useState<boolean>(true);
   const [loading, setLoading] = useState<boolean>(true);
+
+  const location = useLocation();
+  const { items } = location.state || {};
+  console.log(items);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -68,4 +73,4 @@ function Men() {
   );
 }
 
-export default Men;
+export default ProductListPage;
