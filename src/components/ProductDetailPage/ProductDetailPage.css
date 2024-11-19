@@ -1,6 +1,6 @@
 .product-detail {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 2fr 1fr;
   width: 90%;
   margin: 1rem auto;
   gap: 2rem;
@@ -42,8 +42,14 @@
 .product-info {
   display: flex;
   flex-direction: column;
-  margin: 0 0 0 2rem;
+  margin: 0;
   padding: 2rem;
+}
+
+.sku {
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 1rem;
 }
 
 .title {

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { manShirts, manShoes } from '../../api';
+import { fetchData } from '../../api';
 import { useLocation } from 'react-router-dom';
 import Card from '../Card/Card';
 import Loading from '../Loading/Loading';
@@ -7,21 +7,32 @@ import './ProductListPage.css';
 import { Product, ProductsResponse } from '../../types';
 
 function ProductListPage() {
-  const [shirts, setShirts] = useState<Product[]>([]);
-  const [shoes, setShoes] = useState<Product[]>([]);
-  const [toggleCategory, setToggleCategory] = useState<boolean>(true);
+  const [products, setProducts] = useState<Product[]>([]);
+  const [currentCategory, setCurrentCategory] = useState<string>('');
+  const [toggleCategory, setToggleCategory] = useState<boolean>(false);
+  const [supportedCategories, setSupportedCategories] = useState<string[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
   const location = useLocation();
-  const { items } = location.state || {};
-  console.log(items);
+  const { category, items } = location.state || {};
 
   useEffect(() => {
-    const fetchData = async () => {
-      const shirtsResponse: ProductsResponse = await manShirts();
-      setShirts(shirtsResponse.products);
-      const shoesResponse: ProductsResponse = await manShoes();
-      setShoes(shoesResponse.products);
+    if (items) {
+      setSupportedCategories(items.split(','));
+    }
+  }, [items]);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      if (supportedCategories.length === 0) return;
+
+      const endpoint = supportedCategories[0];
+      const productResponse: ProductsResponse | null = await fetchData(endpoint);
+
+      if (productResponse) {
+        setCurrentCategory(category || '');
+        setProducts(productResponse.products);
+      }
 
       // Introduce a 1-second delay before hiding the loading screen
       setTimeout(() => {
@@ -29,11 +40,17 @@ function ProductListPage() {
       }, 1000);
     };
 
-    fetchData();
-  }, []);
+    fetchProducts();
+  }, [supportedCategories, category]);
 
-  const handleCategoryChange = (category: string) => {
-    setToggleCategory(category === 'shirts');
+  const handleCategoryChange = async (category: string, endpoint: string) => {
+    setToggleCategory(!toggleCategory);
+    setCurrentCategory(category);
+    const productResponse: ProductsResponse | null = await fetchData(endpoint);
+
+    if (productResponse) {
+      setProducts(productResponse.products);
+    }
   };
 
   return (
@@ -43,29 +60,33 @@ function ProductListPage() {
       ) : (
         <>
           <div className='category'>
-            <h2>Men Products</h2>
+            <h3>{currentCategory?.toUpperCase()} PRODUCTS</h3>
             <h3>
-              <span
-                id='shirts'
-                className={toggleCategory ? 'disabled' : 'active'}
-                onClick={() => handleCategoryChange('shirts')}
-              >
-                Shirts
-              </span>
-              <span id='separator'>|</span>
-              <span
-                id='shoes'
-                className={toggleCategory ? 'active' : 'disabled'}
-                onClick={() => handleCategoryChange('shoes')}
-              >
-                Shoes
-              </span>
+              {supportedCategories.length > 1 ? (
+                <>
+                  <span
+                    id='products'
+                    className={toggleCategory ? 'active' : 'disabled'}
+                    onClick={() => handleCategoryChange(currentCategory, supportedCategories[0])}
+                  >
+                    {supportedCategories[0].split('-')[1]?.toUpperCase()}
+                  </span>
+                  <span id='divider'>|</span>
+                  <span
+                    id='products'
+                    className={toggleCategory ? 'disabled' : 'active'}
+                    onClick={() => handleCategoryChange(currentCategory, supportedCategories[1])}
+                  >
+                    {supportedCategories[1].split('-')[1]?.toUpperCase()}
+                  </span>
+                </>
+              ) : null}
             </h3>
           </div>
           <div id='man-products'>
-            {toggleCategory
-              ? shirts.map((product) => <Card key={product.id} product={product} category='category-men' />)
-              : shoes.map((product) => <Card key={product.id} product={product} category='category-men' />)}
+            {products.map((product) => (
+              <Card key={product.id} product={product} category={category} />
+            ))}
           </div>
         </>
       )}

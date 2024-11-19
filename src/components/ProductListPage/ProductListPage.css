@@ -15,20 +15,20 @@
   font-size: 1.2rem;
 }
 
-#separator {
+#divider {
   margin: 0.7rem;
   font-weight: 900;
   font-size: 1.4rem;
   color: rgb(255, 36, 73);
 }
 
-.category span.active {
+#products.active {
   color: rgb(255, 36, 73);
 }
 
-.category span.disabled {
+#products.disabled {
   color: grey;
-  cursor: not-allowed;
+  pointer-events: none;
 }
 
 #man-products {

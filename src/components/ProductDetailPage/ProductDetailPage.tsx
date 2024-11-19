@@ -28,6 +28,7 @@ function ProductDetailPage() {
     alert(`Added ${product.title} - Size: ${selectedSize} to cart!`);
   };
 
+  console.log(product);
   return (
     <div className='product-detail'>
       <div className='carousel'>
@@ -48,9 +49,14 @@ function ProductDetailPage() {
       </div>
 
       <div className='product-info'>
-        <h1 className='title'>{product.title}</h1>
+        <h1 className='title'>{product.title} </h1>
         <h5 className='sku'>SKU: {product.sku}</h5>
-        <p className='description'>{product.description}</p>
+        <p className='description'>
+          {product.description}{' '}
+          <span>
+            <img style={{ width: '7rem' }} src={product.thumbnail} alt='small product image' />
+          </span>
+        </p>
         <p className='price'>${product.price}</p>
         <p className='availability'>{product.availabilityStatus}</p>
         <p className='brand'>Brand: {product.brand}</p>

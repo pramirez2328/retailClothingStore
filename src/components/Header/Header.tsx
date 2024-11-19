@@ -13,9 +13,9 @@ function Header() {
     setMenuOpen(!menuOpen);
   };
 
-  const navigateToCategory = (category: string, items?: string[]) => {
+  const navigateToCategory = (category: string, items?: string) => {
     setMenuOpen(false);
-    navigate(`/category/${category}`, { state: { items } });
+    navigate(`/category/${category}`, { state: { category, items } });
   };
 
   return (
@@ -41,22 +41,22 @@ function Header() {
             <div className={`menu ${menuOpen ? 'menu-open' : ''}`} id='navbarNav'>
               <ul className='nav-list'>
                 <li className='nav-item'>
-                  <a className='nav-link' onClick={() => navigateToCategory('men', ['tshirts', 'shoes'])}>
+                  <a className='nav-link' onClick={() => navigateToCategory('men', 'mens-shirts, mens-shoes')}>
                     Men
                   </a>
                 </li>
                 <li className='nav-item'>
-                  <a className='nav-link' onClick={() => navigateToCategory('women')}>
+                  <a className='nav-link' onClick={() => navigateToCategory('women', 'womens-dresses, womens-shoes')}>
                     Women
                   </a>
                 </li>
                 <li className='nav-item'>
-                  <a className='nav-link' onClick={() => navigateToCategory('furniture')}>
+                  <a className='nav-link' onClick={() => navigateToCategory('furniture', 'furniture')}>
                     Furniture
                   </a>
                 </li>
                 <li className='nav-item'>
-                  <a className='nav-link' onClick={() => navigateToCategory('home_decoration')}>
+                  <a className='nav-link' onClick={() => navigateToCategory('home decoration', 'home-decoration')}>
                     Home-Decoration
                   </a>
                 </li>
