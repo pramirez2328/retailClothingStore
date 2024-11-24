@@ -26,32 +26,36 @@
   text-align: center;
 }
 
-#section-logo {
-  text-align: center;
-  margin: 2rem 0;
+.section-text-img {
+  display: flex;
+  flex-wrap: wrap;
 }
 
-#logo {
+section .section-text-img:nth-child(odd) {
+  flex-direction: row-reverse;
+}
+
+.section-text {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+}
+
+.section-img {
   width: 50%;
   height: 50%;
-  margin: 0 auto;
-  display: block;
-}
-
-#clothes-images {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-}
-
-.clothes-img {
-  width: 100%;
-  height: 100%;
 }
 
 /*
 grid-template-columns: 1fr 1fr; on mobile */
 @media (max-width: 768px) {
-  #clothes-images {
-    grid-template-columns: 1fr;
+  .section-text {
+    width: 100%;
+    margin: 2rem 0;
+  }
+
+  .section-img {
+    width: 100%;
   }
 }
