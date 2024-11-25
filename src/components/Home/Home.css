@@ -28,7 +28,18 @@
 
 .section-text-img {
   display: flex;
-  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+/* Show the container when scrolling down */
+.scroll-container {
+  opacity: 0;
+  /* // add a slower transition */
+  transition: 0.5s ease-in-out;
+}
+
+.scroll-container.visible {
+  opacity: 1;
 }
 
 section .section-text-img:nth-child(odd) {
@@ -40,6 +51,8 @@ section .section-text-img:nth-child(odd) {
   justify-content: center;
   align-items: center;
   width: 50%;
+  padding: 4rem;
+  color: rgb(255, 36, 73);
 }
 
 .section-img {

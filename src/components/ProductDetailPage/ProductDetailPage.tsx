@@ -2,6 +2,7 @@ import { useLocation } from 'react-router-dom';
 import { useState } from 'react';
 import { Product } from '../../types';
 import './ProductDetailPage.css';
+import fitaLogo from '../../assets/fit-finder.svg';
 
 function ProductDetailPage() {
   const location = useLocation();
@@ -13,7 +14,14 @@ function ProductDetailPage() {
     return <div>Product not found!</div>;
   }
 
-  const sizes = ['XS', 'S', 'M', 'L', 'XL', 'XXL'];
+  let sizes: string[] = [];
+  if (product.category === 'mens-shirts' || product.category === 'womens-dresses') {
+    sizes = ['XS', 'S', 'M', 'L', 'XL', 'XXL'];
+  } else if (product.category === 'mens-shoes' || product.category === 'womens-shoes') {
+    sizes = ['5', '6', '7', '8', '9', '10', '11', '12'];
+  } else {
+    sizes = ['One Size'];
+  }
 
   const handleSizeClick = (size: string) => {
     setSelectedSize(size);
@@ -51,15 +59,10 @@ function ProductDetailPage() {
       <div className='product-info'>
         <h1 className='title'>{product.title} </h1>
         <h5 className='sku'>SKU: {product.sku}</h5>
-        <p className='description'>
-          {product.description}{' '}
-          <span>
-            <img style={{ width: '7rem' }} src={product.thumbnail} alt='small product image' />
-          </span>
-        </p>
+        <p className='description'>{product.description}</p>
         <p className='price'>${product.price}</p>
         <p className='availability'>{product.availabilityStatus}</p>
-        <p className='brand'>Brand: {product.brand}</p>
+        <p className='brand'>Brand: {product.brand ? product.brand : 'Patagonia'}</p>
 
         <div className='size-selection'>
           <div className='select-size'>
@@ -77,6 +80,9 @@ function ProductDetailPage() {
                 {size}
               </button>
             ))}
+          </div>
+          <div className='fita-container'>
+            <img src={fitaLogo} alt='FITA' className='fita' />
           </div>
         </div>
 
