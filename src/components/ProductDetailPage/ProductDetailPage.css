@@ -48,7 +48,7 @@
 
 .sku {
   font-size: 14px;
-  color: #555;
+  color: #000000;
   margin-bottom: 1rem;
 }
 
@@ -73,7 +73,7 @@
 .availability,
 .brand {
   font-size: 16px;
-  color: #555;
+  color: #000000;
   margin-bottom: 10px;
 }
 
@@ -90,6 +90,7 @@
   font-size: 16px;
   font-weight: bold;
   margin-bottom: 0.5rem;
+  color: #000000;
 }
 
 .sizes {
@@ -137,6 +138,7 @@
   margin-left: 7px;
   font-size: 14px;
   text-decoration: underline;
+  color: #000000;
 }
 
 .fita-container:hover::after {
@@ -181,7 +183,7 @@
 .reviewer-name {
   font-size: 16px;
   font-weight: bold;
-  color: #555;
+  color: #000000;
 }
 
 .review-comment {
@@ -203,16 +205,29 @@
 
 @media (max-width: 1024px) {
   /* //add arrows to see the images and remove the active image */
+  .carousel {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
   .carousel-thumbnails {
-    grid-template-columns: repeat(4, 1fr);
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
+}
+
+@media (max-width: 868px) {
+  .product-detail {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .carousel-thumbnails {
     grid-template-rows: 1fr;
   }
 
-  .carousel {
-    grid-template-columns: 1fr;
-  }
-
-  .product-detail {
-    grid-template-columns: 1fr;
+  .product-info {
+    margin: 0;
   }
 }

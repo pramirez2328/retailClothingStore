@@ -85,7 +85,7 @@ function ProductListPage() {
           </div>
           <div id='man-products'>
             {products.map((product) => (
-              <Card key={product.id} product={product} category={category} />
+              <Card key={product.id} product={product} />
             ))}
           </div>
         </>

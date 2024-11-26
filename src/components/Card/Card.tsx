@@ -2,10 +2,9 @@ import { Product } from '../../types';
 import { useNavigate } from 'react-router-dom';
 import './Card.css';
 
-function Card({ product, category }: { product: Product; category: string }) {
+function Card({ product }: { product: Product }) {
   const navigate = useNavigate();
-  const params = category.split('-');
-  console.log(params);
+
   const goToProductDetail = () => {
     navigate(`././${product.id}`, { state: { product } });
   };

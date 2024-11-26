@@ -13,7 +13,7 @@
   width: 100%;
   height: 100%;
   object-fit: cover; /* Ensures the video maintains its aspect ratio and fills the container */
-  z-index: -1; /* Send the video to the background */
+  z-index: -1; /*  Send the video to the background  */
 }
 
 .slogan {
@@ -28,8 +28,7 @@
 
 .section-text-img {
   display: flex;
-  justify-content: center;
-  align-items: center;
+  flex-wrap: wrap;
 }
 /* Show the container when scrolling down */
 .scroll-container {
