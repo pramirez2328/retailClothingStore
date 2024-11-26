@@ -203,6 +203,28 @@
   color: #888;
 }
 
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+  font-size: 1.5rem;
+  color: #333;
+}
+
 @media (max-width: 1024px) {
   /* //add arrows to see the images and remove the active image */
   .carousel {

@@ -2,10 +2,12 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import cart from '../../assets/cart.svg';
 import logo from '../../assets/logo.png';
+import { useCart } from '../Context/CartProvider';
 
 import './Header.css';
 
 function Header() {
+  const { cartItems } = useCart();
   const [menuOpen, setMenuOpen] = useState(false);
   const navigate = useNavigate();
 
@@ -63,7 +65,10 @@ function Header() {
               </ul>
             </div>
           </div>
-          <img id='cart' src={cart} alt='Shopping Cart' />
+          <div className='cart-container'>
+            <img id='cart-icon' src={cart} alt='Shopping Cart' />
+            <span className='cart-count'>{cartItems}</span>
+          </div>
         </div>
       </nav>
     </header>

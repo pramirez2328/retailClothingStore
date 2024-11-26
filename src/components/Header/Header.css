@@ -74,10 +74,21 @@ header {
 }
 
 /* Shopping cart icon */
-#cart {
-  width: 30px;
-  height: 30px;
+.cart-container {
+  display: flex;
+  justify-content: center;
+}
+
+#cart-icon {
+  width: 25px;
+  height: 25px;
   cursor: pointer;
+  margin-right: 0.7rem;
+}
+
+.cart-count {
+  font-size: 1.4rem;
+  color: rgb(255, 36, 73);
   margin-right: 1rem;
 }
 

@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { CartProvider } from './components/Context/CartProvider';
 import Header from './components/Header/Header';
 import Home from './components/Home/Home';
 import ProductListPage from './components/ProductListPage/ProductListPage';
@@ -9,17 +10,19 @@ import './App.css';
 function App() {
   return (
     <Router>
-      <div className='app'>
-        <Header />
-        <main className='content'>
-          <Routes>
-            <Route path='/' element={<Home />} />
-            <Route path='/category/:category' element={<ProductListPage />} />
-            <Route path='/category/:category/:id' element={<ProductDetailPage />} />
-          </Routes>
-        </main>
-        <Footer />
-      </div>
+      <CartProvider>
+        <div className='app'>
+          <Header />
+          <main className='content'>
+            <Routes>
+              <Route path='/' element={<Home />} />
+              <Route path='/category/:category' element={<ProductListPage />} />
+              <Route path='/category/:category/:id' element={<ProductDetailPage />} />
+            </Routes>
+          </main>
+          <Footer />
+        </div>
+      </CartProvider>
     </Router>
   );
 }

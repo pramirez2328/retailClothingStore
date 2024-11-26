@@ -1,14 +1,17 @@
 import { useLocation } from 'react-router-dom';
 import { useState } from 'react';
 import { Product } from '../../types';
+import { useCart } from '../Context/CartProvider';
 import './ProductDetailPage.css';
 import fitaLogo from '../../assets/fit-finder.svg';
 
 function ProductDetailPage() {
+  const { addItemToCart } = useCart();
   const location = useLocation();
   const { product }: { product: Product } = location.state || {};
   const [selectedImage, setSelectedImage] = useState(0);
   const [selectedSize, setSelectedSize] = useState('');
+  const [showModal, setShowModal] = useState(false);
 
   if (!product) {
     return <div>Product not found!</div>;
@@ -27,16 +30,26 @@ function ProductDetailPage() {
     setSelectedSize(size);
   };
 
-  const handleAddToCart = () => {
+  const handleAddToCart = (currentProduct: Product) => {
     if (!selectedSize) {
       alert('Please select a size before adding to cart.');
       return;
     }
-    // Add to cart logic here
-    alert(`Added ${product.title} - Size: ${selectedSize} to cart!`);
+    addItemToCart();
+    if (!localStorage.getItem('cart')) {
+      localStorage.setItem('cart', JSON.stringify([{ currentProduct, selectedSize }]));
+    } else {
+      const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+      localStorage.setItem('cart', JSON.stringify([...cart, { currentProduct, selectedSize }]));
+    }
+
+    // Show the modal and hide it after 3 seconds
+    setShowModal(true);
+    setTimeout(() => {
+      setShowModal(false);
+    }, 3000);
   };
 
-  console.log(product);
   return (
     <div className='product-detail'>
       <div className='carousel'>
@@ -57,7 +70,7 @@ function ProductDetailPage() {
       </div>
 
       <div className='product-info'>
-        <h1 className='title'>{product.title} </h1>
+        <h1 className='title'>{product.title}</h1>
         <h5 className='sku'>SKU: {product.sku}</h5>
         <p className='description'>{product.description}</p>
         <p className='price'>${product.price}</p>
@@ -86,7 +99,7 @@ function ProductDetailPage() {
           </div>
         </div>
 
-        <button className='add-to-cart-button' onClick={handleAddToCart}>
+        <button className='add-to-cart-button' onClick={() => handleAddToCart(product)}>
           Add to Cart
         </button>
 
@@ -104,6 +117,17 @@ function ProductDetailPage() {
           ))}
         </div>
       </div>
+
+      {/* Modal */}
+      {showModal && (
+        <div className='modal-overlay'>
+          <div className='modal-content'>
+            <h3>{product.title}</h3>
+            <p>was added to the cart</p>
+            <img src={product.thumbnail} alt='thumbnail' />
+          </div>
+        </div>
+      )}
     </div>
   );
 }
