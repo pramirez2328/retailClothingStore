@@ -66,8 +66,10 @@ function Header() {
             </div>
           </div>
           <div className='cart-container'>
-            <img id='cart-icon' src={cart} alt='Shopping Cart' />
-            <span className='cart-count'>{cartItems}</span>
+            <Link to='/checkout' className='cart-link'>
+              <img id='cart-icon' src={cart} alt='Shopping Cart' />
+              <span className='cart-count'>{cartItems}</span>
+            </Link>
           </div>
         </div>
       </nav>

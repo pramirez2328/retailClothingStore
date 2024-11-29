@@ -10,7 +10,7 @@ function ProductDetailPage() {
   const location = useLocation();
   const { product }: { product: Product } = location.state || {};
   const [selectedImage, setSelectedImage] = useState(0);
-  const [selectedSize, setSelectedSize] = useState('');
+  const [selectedSize, setSelectedSize] = useState<string>('');
   const [showModal, setShowModal] = useState(false);
 
   if (!product) {
@@ -23,24 +23,25 @@ function ProductDetailPage() {
   } else if (product.category === 'mens-shoes' || product.category === 'womens-shoes') {
     sizes = ['5', '6', '7', '8', '9', '10', '11', '12'];
   } else {
-    sizes = ['One Size'];
+    sizes = ['Standard'];
   }
 
   const handleSizeClick = (size: string) => {
     setSelectedSize(size);
+    document.querySelector('.warning-message')?.classList.remove('show');
   };
 
   const handleAddToCart = (currentProduct: Product) => {
     if (!selectedSize) {
-      alert('Please select a size before adding to cart.');
+      document.querySelector('.warning-message')?.classList.add('show');
       return;
     }
     addItemToCart();
     if (!localStorage.getItem('cart')) {
-      localStorage.setItem('cart', JSON.stringify([{ currentProduct, selectedSize }]));
+      localStorage.setItem('cart', JSON.stringify([{ ...currentProduct, selectedSize }]));
     } else {
       const cart = JSON.parse(localStorage.getItem('cart') || '[]');
-      localStorage.setItem('cart', JSON.stringify([...cart, { currentProduct, selectedSize }]));
+      localStorage.setItem('cart', JSON.stringify([...cart, { ...currentProduct, selectedSize }]));
     }
 
     // Show the modal and hide it after 3 seconds
@@ -50,6 +51,7 @@ function ProductDetailPage() {
     }, 3000);
   };
 
+  console.log(sizes);
   return (
     <div className='product-detail'>
       <div className='carousel'>
@@ -80,7 +82,7 @@ function ProductDetailPage() {
         <div className='size-selection'>
           <div className='select-size'>
             <p>Select Size:</p>
-            <p>Size Chart</p>
+            {sizes.length > 1 && <p>Size Chart</p>}
           </div>
 
           <div className='sizes'>
@@ -94,9 +96,12 @@ function ProductDetailPage() {
               </button>
             ))}
           </div>
-          <div className='fita-container'>
-            <img src={fitaLogo} alt='FITA' className='fita' />
-          </div>
+          <h4 className='warning-message'>Please select a size first!</h4>
+          {sizes.length > 1 && (
+            <div className='fita-container'>
+              <img src={fitaLogo} alt='FITA' className='fita' />
+            </div>
+          )}
         </div>
 
         <button className='add-to-cart-button' onClick={() => handleAddToCart(product)}>
@@ -123,8 +128,20 @@ function ProductDetailPage() {
         <div className='modal-overlay'>
           <div className='modal-content'>
             <h3>{product.title}</h3>
-            <p>was added to the cart</p>
-            <img src={product.thumbnail} alt='thumbnail' />
+            <hr />
+            <p>
+              Size: <span>{selectedSize}</span>
+            </p>
+            <p>
+              Price: <span>${product.price}</span>
+            </p>
+            <p>
+              sku: <span>{product.sku}</span>
+            </p>
+            <p>{product.title} was added to the cart!</p>
+            <div>
+              <img src={product.thumbnail} alt='thumbnail' />
+            </div>
           </div>
         </div>
       )}

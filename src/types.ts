@@ -38,6 +38,7 @@ export type Product = {
   thumbnail: string;
   warrantyInformation: string;
   weight: number;
+  selectedSize?: string;
 };
 
 export type ProductsResponse = {

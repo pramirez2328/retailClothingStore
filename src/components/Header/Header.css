@@ -74,9 +74,10 @@ header {
 }
 
 /* Shopping cart icon */
-.cart-container {
+.cart-container .cart-link {
   display: flex;
   justify-content: center;
+  text-decoration: none;
 }
 
 #cart-icon {
