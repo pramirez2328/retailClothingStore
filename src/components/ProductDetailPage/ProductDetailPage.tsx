@@ -38,13 +38,21 @@ function ProductDetailPage() {
     }
     addItemToCart();
     if (!localStorage.getItem('cart')) {
-      localStorage.setItem('cart', JSON.stringify([{ ...currentProduct, selectedSize, total: 1 }]));
+      localStorage.setItem('cart', JSON.stringify([{ ...currentProduct, selectedSize, orderQty: 1 }]));
     } else {
       const cart = JSON.parse(localStorage.getItem('cart') || '[]');
-      localStorage.setItem(
-        'cart',
-        JSON.stringify([...cart, { ...currentProduct, selectedSize, total: currentProduct.total + 1 }]),
+      const existingProduct = cart.find(
+        (item: Product) => item.id === currentProduct.id && item.selectedSize === selectedSize,
       );
+      const restOfTheProducts = cart.filter(
+        (item: Product) => item.id !== currentProduct.id || item.selectedSize !== selectedSize,
+      );
+      if (existingProduct) {
+        existingProduct.orderQty += 1;
+        localStorage.setItem('cart', JSON.stringify([...restOfTheProducts, existingProduct]));
+      } else {
+        localStorage.setItem('cart', JSON.stringify([...cart, { ...currentProduct, selectedSize, orderQty: 1 }]));
+      }
     }
 
     // Show the modal and hide it after 3 seconds

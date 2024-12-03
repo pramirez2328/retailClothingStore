@@ -57,6 +57,7 @@ select:focus {
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s;
+  width: 100%;
 }
 
 .checkout-button:hover {
@@ -69,8 +70,14 @@ select:focus {
   gap: 15px;
 }
 
-.checkout-items {
+.single-item {
   border: 1px solid #ccc;
+  padding: 1rem;
+  border-radius: 5px;
+  margin-bottom: 7px;
+}
+
+.checkout-items {
   border-radius: 5px;
   padding: 1rem;
 }
@@ -82,6 +89,53 @@ select:focus {
   background-color: #eceaea;
 }
 
+.checkout-total {
+  margin-top: 2rem;
+}
+
 .item-img {
   width: 7rem;
+}
+
+.counter {
+  display: flex;
+  align-items: center;
+  gap: 8px; /* Space between buttons and input */
+}
+
+.counter-button {
+  background-color: #007bff; /* Primary button color */
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  width: 32px;
+  height: 32px;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.counter-button:hover {
+  background-color: #0056b3; /* Darker shade on hover */
+}
+
+.counter-button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.counter-input {
+  width: 50px;
+  height: 32px;
+  text-align: center;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  outline: none;
+}
+
+.counter-input:focus {
+  border-color: #007bff; /* Border color on focus */
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Glow effect */
 }

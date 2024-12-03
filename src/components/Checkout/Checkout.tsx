@@ -5,22 +5,40 @@ import './Checkout.css';
 
 function Checkout() {
   const [cart, setCart] = useState<Product[]>([]);
-  const [counterTotal, setCounterTotal] = useState(0);
+  const [purchaseTotal, setPurchaseTotal] = useState(0);
 
+  // Calculate and update the total
+  const calculateTotal = (updatedCart: Product[]) => {
+    const total = updatedCart.reduce((acc: number, item: Product) => acc + item.price * item.orderQty, 0).toFixed(2);
+    setPurchaseTotal(parseFloat(total));
+  };
+
+  // Load the cart from localStorage on component mount
   useEffect(() => {
-    const cart = JSON.parse(localStorage.getItem('cart') || '[]');
-    setCart(cart);
-    const total = cart.reduce((acc: number, item: Product) => acc + item.total, 0);
-    setCounterTotal(total);
+    const storedCart = JSON.parse(localStorage.getItem('cart') || '[]');
+    setCart(storedCart);
+    calculateTotal(storedCart);
   }, []);
 
-  const handleCounter = (increment: number, id: number) => {
-    const item = cart.find((item) => item.id === id);
-    if (!item) return;
-    item.total += increment;
-    setCart([...cart]);
-    localStorage.setItem('cart', JSON.stringify(cart));
-    setCounterTotal(counterTotal + increment);
+  // Handle increment/decrement of item quantity
+  const handleCounter = (increment: number, id: number, selectedSize: string) => {
+    setCart((prevCart) => {
+      const updatedCart = prevCart.map((item) => {
+        if (item.id === id && item.selectedSize === selectedSize) {
+          const newOrderQty = Math.max(item.orderQty + increment, 1); // Prevent quantity below 1
+          return { ...item, orderQty: newOrderQty };
+        }
+        return item;
+      });
+
+      // Save updated cart to localStorage
+      localStorage.setItem('cart', JSON.stringify(updatedCart));
+
+      // Update total price
+      calculateTotal(updatedCart);
+
+      return updatedCart;
+    });
   };
 
   return (
@@ -29,7 +47,7 @@ function Checkout() {
       {/* Cart Items */}
       <div className='checkout-items'>
         {cart.map((item) => (
-          <div key={item.id}>
+          <div key={`${item.id}-${item.selectedSize}`} className='single-item'>
             <div className='checkout-item'>
               <img className='item-img' src={item.images[0]} alt={item.title} />
               <div>
@@ -39,20 +57,32 @@ function Checkout() {
               </div>
             </div>
             <div className='counter'>
-              <button className='counter-button' onClick={() => handleCounter(-1, item.id)}>
+              <button
+                className='counter-button'
+                onClick={() => handleCounter(-1, item.id, item.selectedSize)}
+                aria-label='Decrease quantity'
+              >
                 -
               </button>
-              <input type='text' value={item.total} className='counter-input' readOnly />
-              <button className='counter-button' onClick={() => handleCounter(1, item.id)}>
+              <input
+                type='text'
+                value={item.orderQty}
+                className='counter-input'
+                readOnly
+                aria-label={`Quantity of ${item.title}`}
+              />
+              <button
+                className='counter-button'
+                onClick={() => handleCounter(1, item.id, item.selectedSize)}
+                aria-label='Increase quantity'
+              >
                 +
               </button>
             </div>
           </div>
         ))}
         <div className='checkout-total'>
-          <h3>Total: ${counterTotal}</h3>
-
-          <button className='checkout-button'>Place Order</button>
+          <h3>Total: ${purchaseTotal}</h3>
         </div>
       </div>
     </div>
