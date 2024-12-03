@@ -38,10 +38,13 @@ function ProductDetailPage() {
     }
     addItemToCart();
     if (!localStorage.getItem('cart')) {
-      localStorage.setItem('cart', JSON.stringify([{ ...currentProduct, selectedSize }]));
+      localStorage.setItem('cart', JSON.stringify([{ ...currentProduct, selectedSize, total: 1 }]));
     } else {
       const cart = JSON.parse(localStorage.getItem('cart') || '[]');
-      localStorage.setItem('cart', JSON.stringify([...cart, { ...currentProduct, selectedSize }]));
+      localStorage.setItem(
+        'cart',
+        JSON.stringify([...cart, { ...currentProduct, selectedSize, total: currentProduct.total + 1 }]),
+      );
     }
 
     // Show the modal and hide it after 3 seconds
@@ -51,7 +54,6 @@ function ProductDetailPage() {
     }, 3000);
   };
 
-  console.log(sizes);
   return (
     <div className='product-detail'>
       <div className='carousel'>
