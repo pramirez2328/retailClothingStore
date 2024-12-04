@@ -97,6 +97,12 @@ select:focus {
   width: 7rem;
 }
 
+.checkout-updates {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .counter {
   display: flex;
   align-items: center;
@@ -104,7 +110,7 @@ select:focus {
 }
 
 .counter-button {
-  background-color: #007bff; /* Primary button color */
+  background-color: rgb(255, 36, 73);
   color: #fff;
   border: none;
   border-radius: 4px;
@@ -117,7 +123,9 @@ select:focus {
 }
 
 .counter-button:hover {
-  background-color: #0056b3; /* Darker shade on hover */
+  background-color: #fbf7f7;
+  color: #000000;
+  border: 1px solid rgb(255, 36, 73);
 }
 
 .counter-button:disabled {
@@ -136,6 +144,21 @@ select:focus {
 }
 
 .counter-input:focus {
-  border-color: #007bff; /* Border color on focus */
-  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Glow effect */
+  border-color: rgb(255, 36, 73);
+  box-shadow: 0 0 5px rgba(255, 0, 0, 0.5);
+}
+
+.remove-button {
+  background-color: #fff;
+  color: rgb(255, 36, 73);
+  border: solid 1px rgb(255, 36, 73);
+  border-radius: 4px;
+  padding: 7px 14px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.remove-button:hover {
+  background-color: rgb(255, 36, 73);
+  color: #fff;
 }

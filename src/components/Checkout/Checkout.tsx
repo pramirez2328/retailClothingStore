@@ -41,6 +41,13 @@ function Checkout() {
     });
   };
 
+  const handleRemove = (item: Product) => {
+    const updatedCart = cart.filter((cartItem) => cartItem.id !== item.id);
+    setCart(updatedCart);
+    localStorage.setItem('cart', JSON.stringify(updatedCart));
+    calculateTotal(updatedCart);
+  };
+
   return (
     <div className='checkout-container'>
       <Payment />
@@ -56,28 +63,39 @@ function Checkout() {
                 <p className='item-price'>Price: ${item.price}</p>
               </div>
             </div>
-            <div className='counter'>
-              <button
-                className='counter-button'
-                onClick={() => handleCounter(-1, item.id, item.selectedSize)}
-                aria-label='Decrease quantity'
-              >
-                -
-              </button>
-              <input
-                type='text'
-                value={item.orderQty}
-                className='counter-input'
-                readOnly
-                aria-label={`Quantity of ${item.title}`}
-              />
-              <button
-                className='counter-button'
-                onClick={() => handleCounter(1, item.id, item.selectedSize)}
-                aria-label='Increase quantity'
-              >
-                +
-              </button>
+            <div className='checkout-updates'>
+              <div className='counter'>
+                <button
+                  className='counter-button'
+                  onClick={() => handleCounter(-1, item.id, item.selectedSize)}
+                  aria-label='Decrease quantity'
+                >
+                  -
+                </button>
+                <input
+                  type='text'
+                  value={item.orderQty}
+                  className='counter-input'
+                  readOnly
+                  aria-label={`Quantity of ${item.title}`}
+                />
+                <button
+                  className='counter-button'
+                  onClick={() => handleCounter(1, item.id, item.selectedSize)}
+                  aria-label='Increase quantity'
+                >
+                  +
+                </button>
+              </div>
+              <div>
+                <button
+                  className='remove-button'
+                  onClick={() => handleRemove(item)}
+                  aria-label={`Remove ${item.title} from cart`}
+                >
+                  Remove
+                </button>
+              </div>
             </div>
           </div>
         ))}
