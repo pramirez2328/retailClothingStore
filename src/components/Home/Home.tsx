@@ -1,8 +1,9 @@
 import React, { useEffect, useState, useRef } from 'react';
 import mainVideo from '../../assets/mainVideo.mp4';
-import clothes1 from '../../assets/clothes1.jpg';
-import clothes2 from '../../assets/clothes2.jpg';
-import clothes3 from '../../assets/clothes3.jpg';
+import clothes1 from '../../assets/home-image1.webp';
+import clothes2 from '../../assets/home-image2.webp';
+import clothes3 from '../../assets/home-image3.webp';
+import logo from '../../assets/logo.png';
 import './Home.css';
 
 const Home: React.FC = () => {
@@ -38,7 +39,14 @@ const Home: React.FC = () => {
 
         <video className='full-screen-video' src={mainVideo} autoPlay muted loop></video>
       </section>
-
+      <hr />
+      <div className='section-title'>
+        <img src={logo} alt='brand logo' />
+        <h2>
+          Where fashion meets function – your ultimate destination for trendy, comfortable, and confidence-boosting
+          style!
+        </h2>
+      </div>
       <section>
         <div
           className={`section-text-img scroll-container ${visibleSections[0] ? 'visible' : ''}`}

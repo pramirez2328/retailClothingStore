@@ -1,7 +1,13 @@
 footer {
   background-color: rgb(255, 36, 73);
-  padding: 1rem;
-  text-align: center;
-  color: white;
-  font-size: 0.7rem;
+
+  padding: 2rem;
+  display: flex;
+  justify-content: space-between;
+  color: #ffffff;
+}
+
+footer div p {
+  margin: 0;
+  font-size: 0.8rem;
 }
