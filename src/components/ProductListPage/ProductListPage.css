@@ -45,4 +45,18 @@
     grid-template-columns: 1fr 1fr;
     grid-gap: 0.7rem;
   }
+
+  .category h3 {
+    display: flex;
+    align-items: center;
+  }
+
+  .category h3,
+  .category span {
+    font-size: 0.9rem;
+  }
+
+  .nav-item a {
+    font-size: 0.9rem;
+  }
 }

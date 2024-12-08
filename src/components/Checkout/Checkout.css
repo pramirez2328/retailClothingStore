@@ -9,6 +9,7 @@
   width: 90%;
   margin: 0 auto;
   gap: 1rem;
+  width: 60%;
 }
 
 h1 {
@@ -161,4 +162,15 @@ select:focus {
 .remove-button:hover {
   background-color: rgb(255, 36, 73);
   color: #fff;
+}
+
+@media screen and (max-width: 1024px) {
+  .checkout-container {
+    width: 80%;
+  }
+}
+@media screen and (max-width: 768px) {
+  .checkout-container {
+    grid-template-columns: 1fr;
+  }
 }
