@@ -3,6 +3,8 @@ import React, { createContext, useContext, useState } from 'react';
 interface CartContextProps {
   cartItems: number;
   addItemToCart: () => void;
+  removeItemFromCart: (arg0: number) => void;
+  clearCart: () => void;
 }
 
 const CartContext = createContext<CartContextProps | undefined>(undefined);
@@ -15,7 +17,20 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
     setCartItems((prev: number) => prev + 1);
   };
 
-  return <CartContext.Provider value={{ cartItems, addItemToCart }}>{children}</CartContext.Provider>;
+  const removeItemFromCart = (items: number) => {
+    setCartItems((prev: number) => prev - items);
+  };
+
+  const clearCart = () => {
+    localStorage.removeItem('cart');
+    setCartItems(0);
+  };
+
+  return (
+    <CartContext.Provider value={{ cartItems, addItemToCart, removeItemFromCart, clearCart }}>
+      {children}
+    </CartContext.Provider>
+  );
 };
 
 // eslint-disable-next-line react-refresh/only-export-components

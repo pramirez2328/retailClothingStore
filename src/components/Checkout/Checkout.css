@@ -7,7 +7,7 @@
   border-radius: 8px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   width: 90%;
-  margin: 0 auto;
+  margin: 1rem auto;
   gap: 1rem;
   width: 60%;
 }
@@ -162,6 +162,11 @@ select:focus {
 .remove-button:hover {
   background-color: rgb(255, 36, 73);
   color: #fff;
+}
+
+.error {
+  color: red;
+  font-size: 14px;
 }
 
 @media screen and (max-width: 1024px) {

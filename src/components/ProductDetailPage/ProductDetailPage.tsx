@@ -60,6 +60,13 @@ function ProductDetailPage() {
     setTimeout(() => {
       setShowModal(false);
     }, 3000);
+
+    //close the modal if the user clicks outside of it
+    window.onclick = (event) => {
+      if (event.target === document.querySelector('.modal-overlay')) {
+        setShowModal(false);
+      }
+    };
   };
 
   return (
