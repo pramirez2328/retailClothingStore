@@ -7,9 +7,11 @@ import './ProductListPage.css';
 import { Product, ProductsResponse } from '../../types';
 
 function ProductListPage() {
+  // Declare state variables for products, current category, toggle category, supported categories, and loading
   const [products, setProducts] = useState<Product[]>([]);
   const [currentCategory, setCurrentCategory] = useState<string>('');
   const [toggleCategory, setToggleCategory] = useState<boolean>(false);
+  // men and women products have different categories
   const [supportedCategories, setSupportedCategories] = useState<string[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
@@ -85,6 +87,7 @@ function ProductListPage() {
           </div>
           <div id='man-products'>
             {products.map((product) => (
+              // Render a Card component for each product
               <Card key={product.id} product={product} />
             ))}
           </div>

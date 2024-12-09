@@ -94,7 +94,6 @@ header {
   margin-right: 1rem;
 }
 
-/* Responsive design for smaller screens */
 @media (max-width: 768px) {
   .menu {
     display: none;

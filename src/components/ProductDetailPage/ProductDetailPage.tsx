@@ -7,13 +7,16 @@ import fitaLogo from '../../assets/fit-finder.svg';
 import NotFoundPage from '../NotFoundPage/NotFoundPage';
 
 function ProductDetailPage() {
+  // context hook to access the cart state and functions
   const { addItemToCart } = useCart();
   const location = useLocation();
   const { product }: { product: Product } = location.state || {};
+  // Declare state variables for selected image, selected size, and modal visibility
   const [selectedImage, setSelectedImage] = useState(0);
   const [selectedSize, setSelectedSize] = useState<string>('');
   const [showModal, setShowModal] = useState(false);
 
+  // Redirect to 404 page if product is not found
   if (!product) {
     return <NotFoundPage />;
   }
@@ -39,6 +42,7 @@ function ProductDetailPage() {
     }
     addItemToCart();
     if (!localStorage.getItem('cart')) {
+      // if the cart does not exist in the local storage, create it
       localStorage.setItem('cart', JSON.stringify([{ ...currentProduct, selectedSize, orderQty: 1 }]));
     } else {
       const cart = JSON.parse(localStorage.getItem('cart') || '[]');
@@ -67,6 +71,10 @@ function ProductDetailPage() {
       if (event.target === document.querySelector('.modal-overlay')) {
         setShowModal(false);
       }
+    };
+
+    return () => {
+      window.onclick = null;
     };
   };
 

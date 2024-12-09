@@ -39,7 +39,6 @@
 }
 
 /* // change the grid columns to 1fr 1fr  on mobile */
-
 @media (max-width: 768px) {
   #man-products {
     grid-template-columns: 1fr 1fr;

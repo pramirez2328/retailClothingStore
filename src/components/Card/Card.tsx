@@ -5,6 +5,7 @@ import './Card.css';
 function Card({ product }: { product: Product }) {
   const navigate = useNavigate();
 
+  // Navigate to the product detail page
   const goToProductDetail = () => {
     navigate(`././${product.id}`, { state: { product } });
   };

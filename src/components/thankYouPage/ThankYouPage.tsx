@@ -4,7 +4,7 @@ import { useCart } from '../Context/CartProvider';
 
 function ThankYou() {
   const { clearCart } = useCart();
-  // Generate a random order ID (alphanumeric, 10 characters)
+  // Generate a random order ID
   const generateOrderId = () => {
     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
     let orderId = '';

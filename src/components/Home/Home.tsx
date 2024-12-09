@@ -10,6 +10,7 @@ const Home: React.FC = () => {
   const [visibleSections, setVisibleSections] = useState([false, false, false]);
   const sectionRefs = [useRef<HTMLDivElement>(null), useRef<HTMLDivElement>(null), useRef<HTMLDivElement>(null)];
 
+  // Function to handle scroll event, and update the visible sections
   const handleScroll = () => {
     const newVisibleSections = sectionRefs.map((ref) => {
       if (ref.current) {
@@ -27,6 +28,7 @@ const Home: React.FC = () => {
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
+    // eslint-disable-next-line
   }, []);
 
   return (

@@ -37,7 +37,6 @@ src
 │ ├── ProductDetailPage # Product details view
 │ ├── ProductListPage # Product listing for categories
 │ ├── thankYouPage # Post-checkout confirmation page
-│ ├── WomenCategory # Women's clothing category page
 ├── App.css # Main application styling
 ├── App.tsx # Application entry point
 ├── api.ts # API calls and services
@@ -45,7 +44,6 @@ src
 ├── main.tsx # Application bootstrap file
 ├── types.ts # TypeScript type definitions
 └── vite-env.d.ts # Vite environment types
-
 ```
 
 ---
@@ -60,8 +58,6 @@ Follow these steps to run the project locally:
    git clone https://github.com/pramirez2328/retailClothingStore.git
    cd online-store
    ```
-
-````
 
 2. **Install Dependencies**:
 
@@ -108,4 +104,3 @@ The project fetches product data from the [DummyJSON API](https://dummyjson.com/
 ## Add-to-Cart Functionality
 
 Users can add products to their cart directly from the product listing or detail pages. The cart is managed globally using the **Context API**, allowing for a seamless shopping experience across the application.
-````
