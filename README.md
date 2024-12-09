@@ -1,4 +1,3 @@
-```markdown
 # Online Store: Clothes, Furniture, and Home Decoration
 
 This project is a modern online store for **clothes**, **furniture**, and **home decoration**. Built with **React**, **TypeScript**, and **Vite**, it offers a seamless shopping experience with robust features like a checkout page with payment validation, an add-to-cart feature, and global state management using the Context API.
@@ -21,10 +20,11 @@ This project is a modern online store for **clothes**, **furniture**, and **home
 ## Folder Structure
 
 Overview of the key directories and files:
+
 ```
 
 src
-├── assets # Static assets (e.g., images, fonts)
+|── assets # Static assets (e.g., images, fonts)
 ├── components # Reusable components
 │ ├── Card # Product card
 │ ├── Checkout # Checkout page with payment validation
@@ -46,7 +46,7 @@ src
 ├── types.ts # TypeScript type definitions
 └── vite-env.d.ts # Vite environment types
 
-````
+```
 
 ---
 
@@ -59,6 +59,8 @@ Follow these steps to run the project locally:
    ```bash
    git clone https://github.com/pramirez2328/retailClothingStore.git
    cd online-store
+   ```
+
 ````
 
 2. **Install Dependencies**:
@@ -106,3 +108,4 @@ The project fetches product data from the [DummyJSON API](https://dummyjson.com/
 ## Add-to-Cart Functionality
 
 Users can add products to their cart directly from the product listing or detail pages. The cart is managed globally using the **Context API**, allowing for a seamless shopping experience across the application.
+````
