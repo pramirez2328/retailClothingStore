@@ -4,6 +4,7 @@ import { Product } from '../../types';
 import { useCart } from '../Context/CartProvider';
 import './ProductDetailPage.css';
 import fitaLogo from '../../assets/fit-finder.svg';
+import NotFoundPage from '../NotFoundPage/NotFoundPage';
 
 function ProductDetailPage() {
   const { addItemToCart } = useCart();
@@ -14,7 +15,7 @@ function ProductDetailPage() {
   const [showModal, setShowModal] = useState(false);
 
   if (!product) {
-    return <div>Product not found!</div>;
+    return <NotFoundPage />;
   }
 
   let sizes: string[] = [];
