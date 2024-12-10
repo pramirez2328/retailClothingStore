@@ -25,7 +25,7 @@ function ProductDetailPage() {
   if (product.category === 'mens-shirts' || product.category === 'womens-dresses') {
     sizes = ['XS', 'S', 'M', 'L', 'XL', 'XXL'];
   } else if (product.category === 'mens-shoes' || product.category === 'womens-shoes') {
-    sizes = ['5', '6', '7', '8', '9', '10', '11', '12'];
+    sizes = ['6', '7', '8', '9', '10', '11'];
   } else {
     sizes = ['Standard'];
   }
