@@ -29,9 +29,10 @@ function CartList({ isOrderPlaced }: { isOrderPlaced: boolean }) {
         if (increment === -1 && item.orderQty > 1) {
           removeItemFromCart();
           return { ...item, orderQty: item.orderQty - 1 };
+        } else if (increment === 1 && item.selectedSize === selectedSize) {
+          addItemToCart();
+          return { ...item, orderQty: item.orderQty + 1 };
         }
-        addItemToCart();
-        return { ...item, orderQty: item.orderQty + 1 };
       }
       return item;
     });
