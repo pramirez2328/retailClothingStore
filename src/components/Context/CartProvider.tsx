@@ -4,7 +4,8 @@ interface CartContextProps {
   cartItems: number;
   addItemToCart: () => void;
   removeItemFromCart: () => void;
-  removeAllItemsFromOneGarment: (id: number) => void;
+  removeAllItemsFromOneGarment: (qty: number) => void;
+  clearCart: () => void;
 }
 
 const CartContext = createContext<CartContextProps | undefined>(undefined);
@@ -27,8 +28,15 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
     setCartItems((prev: number) => prev - qty);
   };
 
+  const clearCart = () => {
+    localStorage.removeItem('cart');
+    setCartItems(0);
+  };
+
   return (
-    <CartContext.Provider value={{ cartItems, addItemToCart, removeItemFromCart, removeAllItemsFromOneGarment }}>
+    <CartContext.Provider
+      value={{ cartItems, addItemToCart, removeItemFromCart, removeAllItemsFromOneGarment, clearCart }}
+    >
       {children}
     </CartContext.Provider>
   );
