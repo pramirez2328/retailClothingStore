@@ -4,7 +4,7 @@ import { Product } from '../../types';
 import './Checkout.css';
 
 function CartList({ isOrderPlaced }: { isOrderPlaced: boolean }) {
-  const { addItemToCart, removeItemFromCart } = useCart();
+  const { addItemToCart, removeItemFromCart, removeAllItemsFromOneGarment } = useCart();
   const [cart, setCart] = useState<Product[]>([]);
   const [purchaseTotal, setPurchaseTotal] = useState(0);
 
@@ -23,25 +23,20 @@ function CartList({ isOrderPlaced }: { isOrderPlaced: boolean }) {
 
   // Handle increment/decrement of item quantity
   const handleCounter = (increment: number, id: number, selectedSize: string) => {
-    setCart((prevCart) => {
-      const updatedCart = prevCart.map((item) => {
-        if (item.id === id && item.selectedSize === selectedSize) {
-          const newOrderQty = Math.max(item.orderQty + increment, 1); // Prevent quantity below 1
-          return { ...item, orderQty: newOrderQty };
+    //if increment is -1 and orderQty is 1, remove the item from local storage and call either addItemToCart or removeItemFromCart
+    const updatedCart = cart.map((item) => {
+      if (item.id === id && item.selectedSize === selectedSize) {
+        if (increment === -1 && item.orderQty > 1) {
+          removeItemFromCart();
+          return { ...item, orderQty: item.orderQty - 1 };
         }
-        return item;
-      });
-
-      // Save updated cart to localStorage
-      localStorage.setItem('cart', JSON.stringify(updatedCart));
-
-      // Update total price
-      calculateTotal(updatedCart);
-
-      return updatedCart;
+        addItemToCart();
+        return { ...item, orderQty: item.orderQty + 1 };
+      }
+      return item;
     });
 
-    addItemToCart();
+    setCart(updatedCart);
   };
 
   const handleRemove = (item: Product) => {
@@ -52,9 +47,10 @@ function CartList({ isOrderPlaced }: { isOrderPlaced: boolean }) {
     setCart(updatedCart);
     localStorage.setItem('cart', JSON.stringify(updatedCart));
     calculateTotal(updatedCart);
-    removeItemFromCart(item.orderQty);
+    removeAllItemsFromOneGarment(item.orderQty);
   };
 
+  console.log(cart);
   return (
     <div className='checkout-items'>
       {cart.map((item) => (

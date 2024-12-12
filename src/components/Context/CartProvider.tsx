@@ -1,10 +1,10 @@
-import React, { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useState } from 'react';
 
 interface CartContextProps {
   cartItems: number;
   addItemToCart: () => void;
-  removeItemFromCart: (arg0: number) => void;
-  clearCart: () => void;
+  removeItemFromCart: () => void;
+  removeAllItemsFromOneGarment: (id: number) => void;
 }
 
 const CartContext = createContext<CartContextProps | undefined>(undefined);
@@ -19,18 +19,16 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   // Remove an item from the cart
-  const removeItemFromCart = (items: number) => {
-    setCartItems((prev: number) => prev - items);
+  const removeItemFromCart = () => {
+    setCartItems((prev: number) => prev - 1);
   };
 
-  // Clear the cart
-  const clearCart = () => {
-    localStorage.removeItem('cart');
-    setCartItems(0);
+  const removeAllItemsFromOneGarment = (qty: number) => {
+    setCartItems((prev: number) => prev - qty);
   };
 
   return (
-    <CartContext.Provider value={{ cartItems, addItemToCart, removeItemFromCart, clearCart }}>
+    <CartContext.Provider value={{ cartItems, addItemToCart, removeItemFromCart, removeAllItemsFromOneGarment }}>
       {children}
     </CartContext.Provider>
   );
