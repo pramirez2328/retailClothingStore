@@ -38,6 +38,8 @@ function CartList({ isOrderPlaced }: { isOrderPlaced: boolean }) {
     });
 
     setCart(updatedCart);
+    localStorage.setItem('cart', JSON.stringify(updatedCart));
+    calculateTotal(updatedCart);
   };
 
   const handleRemove = (item: Product) => {
@@ -51,7 +53,6 @@ function CartList({ isOrderPlaced }: { isOrderPlaced: boolean }) {
     removeAllItemsFromOneGarment(item.orderQty);
   };
 
-  console.log(cart);
   return (
     <div className='checkout-items'>
       {cart.map((item) => (

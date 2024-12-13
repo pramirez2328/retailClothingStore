@@ -67,6 +67,7 @@ header {
   font-size: 1.1rem;
   text-decoration: none;
   color: black;
+  cursor: pointer;
 }
 
 .nav-item a:hover {
