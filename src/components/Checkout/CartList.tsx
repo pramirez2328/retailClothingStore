@@ -72,6 +72,7 @@ function CartList({ isOrderPlaced }: { isOrderPlaced: boolean }) {
                   className='counter-button'
                   onClick={() => handleCounter(-1, item.id, item.selectedSize)}
                   aria-label='Decrease quantity'
+                  {...(item.orderQty === 1 ? { disabled: true } : {})}
                 >
                   -
                 </button>

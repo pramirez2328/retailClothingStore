@@ -39,7 +39,7 @@ function ProductListPage() {
       // Introduce a 1-second delay before hiding the loading screen
       setTimeout(() => {
         setLoading(false);
-      }, 1000);
+      }, 700);
     };
 
     fetchProducts();
