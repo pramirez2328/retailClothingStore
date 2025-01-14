@@ -87,7 +87,6 @@ function ProductListPage() {
           </div>
           <div id='man-products'>
             {products.map((product) => (
-              // Render a Card component for each product
               <Card key={product.id} product={product} />
             ))}
           </div>
