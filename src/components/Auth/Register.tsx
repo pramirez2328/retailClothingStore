@@ -1,48 +1,68 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { registerUser } from '../../api';
+import { useCart } from '../Context/CartProvider'; // ✅ Import useCart
+import './AuthStyles/Register.css';
 
 const Register = () => {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
+  const { setIsAuthenticated } = useCart(); // ✅ Use setIsAuthenticated from Context
   const navigate = useNavigate();
 
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      await registerUser(username, email, password);
-      setMessage('Registration successful. Redirecting to login...');
-      setTimeout(() => navigate('/login'), 2000);
+      const response = await registerUser(username, email, password);
+
+      if (response.token) {
+        // ✅ Ensure token exists before setting it
+        localStorage.setItem('token', response.token);
+        setIsAuthenticated(true); // ✅ Update authentication state in context
+        navigate('/profile'); // ✅ Redirect to Profile
+      } else {
+        setMessage('❌ Registration failed. No token received.');
+        console.error('Registration error: No token received from backend');
+      }
     } catch (err) {
-      setMessage('Registration failed.');
+      setMessage('❌ Registration failed. Try again.');
       console.error('Registration error:', err);
     }
   };
 
   return (
-    <div>
-      <h2>Register</h2>
-      {message && <p>{message}</p>}
-      <form onSubmit={handleRegister}>
-        <input
-          type='text'
-          placeholder='Username'
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-          required
-        />
-        <input type='email' placeholder='Email' value={email} onChange={(e) => setEmail(e.target.value)} required />
-        <input
-          type='password'
-          placeholder='Password'
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
-        <button type='submit'>Register</button>
-      </form>
+    <div className='register-container'>
+      <div className='register-box'>
+        <h2>Register</h2>
+        {message && <p className='message'>{message}</p>}
+        <form className='register-form' onSubmit={handleRegister}>
+          <input
+            type='text'
+            placeholder='Username'
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            required
+          />
+          <input type='email' placeholder='Email' value={email} onChange={(e) => setEmail(e.target.value)} required />
+          <input
+            type='password'
+            placeholder='Password'
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+          <button type='submit' className='register-button'>
+            Register
+          </button>
+        </form>
+        <div className='register-links'>
+          <p>
+            Already have an account? <Link to='/login'>Login</Link>
+          </p>
+        </div>
+      </div>
     </div>
   );
 };

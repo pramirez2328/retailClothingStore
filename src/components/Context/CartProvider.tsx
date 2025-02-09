@@ -6,6 +6,8 @@ interface CartContextProps {
   removeItemFromCart: () => void;
   removeAllItemsFromOneGarment: (qty: number) => void;
   clearCart: () => void;
+  isAuthenticated: boolean;
+  setIsAuthenticated: (isAuthenticated: boolean) => void;
 }
 
 const CartContext = createContext<CartContextProps | undefined>(undefined);
@@ -13,6 +15,7 @@ const CartContext = createContext<CartContextProps | undefined>(undefined);
 export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const currentCart = localStorage.getItem('cart');
   const [cartItems, setCartItems] = useState(currentCart ? JSON.parse(currentCart).length : 0);
+  const [isAuthenticated, setIsAuthenticated] = useState(!!localStorage.getItem('token'));
 
   // Add an item to the cart
   const addItemToCart = () => {
@@ -35,7 +38,15 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   return (
     <CartContext.Provider
-      value={{ cartItems, addItemToCart, removeItemFromCart, removeAllItemsFromOneGarment, clearCart }}
+      value={{
+        cartItems,
+        addItemToCart,
+        removeItemFromCart,
+        removeAllItemsFromOneGarment,
+        clearCart,
+        isAuthenticated,
+        setIsAuthenticated
+      }}
     >
       {children}
     </CartContext.Provider>

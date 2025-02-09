@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import { getProfile } from '../../api';
 import { useNavigate } from 'react-router-dom';
+import { useCart } from '../Context/CartProvider';
+import './AuthStyles/Profile.css';
 
 interface User {
   username: string;
@@ -9,40 +11,56 @@ interface User {
 
 const Profile = () => {
   const [user, setUser] = useState<User | null>(null);
+  const { isAuthenticated, setIsAuthenticated } = useCart();
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchProfile = async () => {
-      const token = localStorage.getItem('token');
-      if (!token) {
-        navigate('/login');
-        return;
-      }
+    if (!isAuthenticated) {
+      navigate('/login');
+      return;
+    }
 
+    const fetchProfile = async () => {
       try {
+        const token = localStorage.getItem('token');
+        if (!token) {
+          navigate('/login');
+          return;
+        }
         const data = await getProfile(token);
         setUser(data);
       } catch (err) {
         localStorage.removeItem('token');
         navigate('/login');
-        console.log('Error fetching profile:', err);
+        console.error('Error fetching profile:', err);
       }
     };
 
     fetchProfile();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [isAuthenticated, navigate]);
+
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    setIsAuthenticated(false);
+    navigate('/login');
+  };
 
   return (
-    <div>
-      <h2>Profile</h2>
-      {user ? (
-        <p>
-          Welcome, {user.username}! {user.email}
-        </p>
-      ) : (
-        <p>Loading...</p>
-      )}
+    <div className='profile-container'>
+      <div className='profile-box'>
+        <h2>Profile</h2>
+        {user ? (
+          <>
+            <p className='profile-details'>Username: {user.username}</p>
+            <p className='profile-details'>Email: {user.email}</p>
+            <button className='logout-button' onClick={handleLogout}>
+              Logout
+            </button>
+          </>
+        ) : (
+          <p>Loading...</p>
+        )}
+      </div>
     </div>
   );
 };
