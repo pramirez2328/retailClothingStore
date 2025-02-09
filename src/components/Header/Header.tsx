@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import cart from '../../assets/cart.svg';
 import logo from '../../assets/logo.png';
@@ -9,7 +9,14 @@ import './Header.css';
 function Header() {
   const { cartItems } = useCart();
   const [menuOpen, setMenuOpen] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const navigate = useNavigate();
+
+  // Check if user is authenticated
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    setIsAuthenticated(!!token); // Convert to boolean (true/false)
+  }, []);
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
@@ -18,6 +25,13 @@ function Header() {
   const navigateToCategory = (category: string, items?: string) => {
     setMenuOpen(false);
     navigate(`/category/${category}`, { state: { category, items } });
+  };
+
+  // Handle logout
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    setIsAuthenticated(false);
+    navigate('/');
   };
 
   return (
@@ -64,6 +78,27 @@ function Header() {
                 </li>
               </ul>
             </div>
+          </div>
+          <div className='auth-container'>
+            {isAuthenticated ? (
+              <>
+                <Link to='/profile' className='nav-link'>
+                  Profile
+                </Link>
+                <button className='logout-button' onClick={handleLogout}>
+                  Logout
+                </button>
+              </>
+            ) : (
+              <>
+                <Link to='/login' className='nav-link'>
+                  Login
+                </Link>
+                <Link to='/register' className='nav-link'>
+                  Register
+                </Link>
+              </>
+            )}
           </div>
           <div className='cart-container'>
             <Link to='/checkout' className='cart-link'>

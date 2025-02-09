@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { CartProvider } from './components/Context/CartProvider';
 import Header from './components/Header/Header';
 import Home from './components/Home/Home';
@@ -7,28 +7,39 @@ import ProductDetailPage from './components/ProductDetailPage/ProductDetailPage'
 import Checkout from './components/Checkout/Checkout';
 import Footer from './components/Footer/Footer';
 import NotFoundPage from './components/NotFoundPage/NotFoundPage';
+import Login from './components/Auth/Login';
+import Register from './components/Auth/Register';
+import Profile from './components/Auth/Profile';
 import './App.css';
+
+// Function to check if user is authenticated
+const isAuthenticated = () => {
+  return !!localStorage.getItem('token'); // Converts to boolean (true/false)
+};
+
+// Protected Route Component
+const ProtectedRoute = ({ element }: { element: JSX.Element }) => {
+  return isAuthenticated() ? element : <Navigate to='/login' replace />;
+};
 
 function App() {
   return (
-    // Wrap the entire application in Router for routing functionality
     <Router>
-      {/* Provide global cart context to all components */}
       <CartProvider>
         <div className='app'>
-          {/* Persistent header across all pages */}
           <Header />
           <main className='content'>
             <Routes>
-              {/* Define routes for each page */}
               <Route path='/' element={<Home />} />
               <Route path='/category/:category' element={<ProductListPage />} />
               <Route path='/category/:category/:id' element={<ProductDetailPage />} />
-              <Route path='/checkout' element={<Checkout />} />
-              <Route path='*' element={<NotFoundPage />} /> {/* Catch-all route for undefined paths */}
+              <Route path='/checkout' element={<ProtectedRoute element={<Checkout />} />} />
+              <Route path='/login' element={<Login />} />
+              <Route path='/register' element={<Register />} />
+              <Route path='/profile' element={<ProtectedRoute element={<Profile />} />} />
+              <Route path='*' element={<NotFoundPage />} />
             </Routes>
           </main>
-          {/* Persistent footer across all pages */}
           <Footer />
         </div>
       </CartProvider>
