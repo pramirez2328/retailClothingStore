@@ -30,13 +30,19 @@ const Login = () => {
         <h2>Login</h2>
         {error && <p className='error-message'>{error}</p>}
         <form className='login-form' onSubmit={handleLogin}>
-          <input type='email' placeholder='Email' value={email} onChange={(e) => setEmail(e.target.value)} required />
+          <input
+            type='email'
+            placeholder='Email'
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            autoComplete='email'
+          />
           <input
             type='password'
             placeholder='Password'
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            required
+            autoComplete='current-password'
           />
           <button type='submit' className='login-button'>
             Login

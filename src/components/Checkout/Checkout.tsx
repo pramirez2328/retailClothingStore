@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import ThankYouPage from '../thankYouPage/ThankYouPage';
+import ThankYouPage from '../ThankYouPage/ThankYouPage';
 import Validation from './Validation';
 import CartList from './CartList';
 import './Checkout.css';

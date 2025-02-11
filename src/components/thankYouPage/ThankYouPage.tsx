@@ -3,7 +3,7 @@ import './ThankYouPage.css';
 import { useCart } from '../Context/CartProvider';
 
 function ThankYou() {
-  const { clearCart } = useCart();
+  const { clearCart, currentCart } = useCart();
   // Generate a random order ID
   const generateOrderId = () => {
     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
@@ -18,6 +18,8 @@ function ThankYou() {
     clearCart();
     // eslint-disable-next-line
   }, []);
+
+  console.log(currentCart);
 
   return (
     <div className='thank-you-page'>

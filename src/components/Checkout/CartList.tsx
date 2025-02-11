@@ -44,7 +44,7 @@ function CartList({ isOrderPlaced }: { isOrderPlaced: boolean }) {
 
   const handleRemove = (item: Product) => {
     const updatedCart = cart.filter(
-      (cartItem) => cartItem.id !== item.id || cartItem.selectedSize !== item.selectedSize,
+      (cartItem) => cartItem.id !== item.id || cartItem.selectedSize !== item.selectedSize
     );
 
     setCart(updatedCart);

@@ -8,6 +8,7 @@ interface CartContextProps {
   clearCart: () => void;
   isAuthenticated: boolean;
   setIsAuthenticated: (isAuthenticated: boolean) => void;
+  currentCart: string | null;
 }
 
 const CartContext = createContext<CartContextProps | undefined>(undefined);
@@ -45,7 +46,8 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
         removeAllItemsFromOneGarment,
         clearCart,
         isAuthenticated,
-        setIsAuthenticated
+        setIsAuthenticated,
+        currentCart
       }}
     >
       {children}

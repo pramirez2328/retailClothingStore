@@ -10,6 +10,7 @@ import NotFoundPage from './components/NotFoundPage/NotFoundPage';
 import Login from './components/Auth/Login';
 import Register from './components/Auth/Register';
 import Profile from './components/Auth/Profile';
+
 import './App.css';
 
 // Function to check if user is authenticated
