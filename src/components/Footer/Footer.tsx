@@ -8,7 +8,7 @@ function Footer() {
       </div>
       <div>
         <p>Boston University</p>
-        <p>CS 601 Web Application Development</p>
+        <p>CS 602 Web Application Development</p>
       </div>
     </footer>
   );
