@@ -40,6 +40,7 @@ function ThankYou() {
     if (currentCart && currentCart.length) {
       sendPurchaseToBackend();
     }
+    // eslint-disable-next-line
   }, [currentCart]);
 
   return (

@@ -42,3 +42,25 @@
 .logout-button:hover {
   background-color: #c82333;
 }
+
+.purchase-length {
+  font-size: 16px;
+  color: #555;
+  margin: 1rem 0;
+}
+
+.fetch-purchases-button {
+  background-color: #007bff;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s ease-in-out;
+}
+
+.profile-buttons {
+  display: flex;
+  justify-content: space-between;
+}

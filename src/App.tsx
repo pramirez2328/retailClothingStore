@@ -10,6 +10,7 @@ import NotFoundPage from './components/NotFoundPage/NotFoundPage';
 import Login from './components/Auth/Login';
 import Register from './components/Auth/Register';
 import Profile from './components/Auth/Profile';
+import PurchaseHistory from './components/PurchaseHistory/PurchaseHistory';
 
 import './App.css';
 
@@ -38,6 +39,7 @@ function App() {
               <Route path='/login' element={<Login />} />
               <Route path='/register' element={<Register />} />
               <Route path='/profile' element={<ProtectedRoute element={<Profile />} />} />
+              <Route path='/profile/purchase-history' element={<ProtectedRoute element={<PurchaseHistory />} />} />
               <Route path='*' element={<NotFoundPage />} />
             </Routes>
           </main>
