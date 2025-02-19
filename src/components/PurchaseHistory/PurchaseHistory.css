@@ -11,10 +11,9 @@
 }
 
 /* Title */
-.purchase-history h1 {
-  text-align: center;
+.purchase-history h2 {
   margin-bottom: 1rem;
-  color: #333;
+  font-weight: 700;
 }
 
 /* Purchase Card */
@@ -31,14 +30,22 @@
 
 /* Purchase Info */
 .purchase-card h3 {
-  margin: 0 0 10px;
-  font-size: 18px;
+  text-align: center;
+  margin: 1rem 0;
+  font-size: 1.1rem;
   color: rgb(255, 36, 73);
+  border-bottom: solid 2px #e0e0e0;
+
+  padding: 0.5rem 0;
+  width: 100%;
 }
 
 .purchase-card p {
-  margin: 5px 0;
-  color: #555;
+  margin: 0.7rem 0;
+}
+
+.purchase-amount {
+  font-weight: 700;
 }
 
 /* Item List */

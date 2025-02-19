@@ -1,7 +1,6 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 import { GET_USER_PURCHASES } from '../../graphql/queries';
-
 import { useEffect, useState } from 'react';
 import './PurchaseHistory.css';
 
@@ -37,8 +36,8 @@ function PurchaseHistory() {
   const location = useLocation();
   const navigate = useNavigate();
   const user = location.state?.user as User | undefined;
-
   const [userId, setUserId] = useState<string | null>(null);
+  const [searchId, setSearchId] = useState<string>('');
 
   useEffect(() => {
     if (user?._id) {
@@ -47,6 +46,19 @@ function PurchaseHistory() {
       navigate('/'); // Redirect to home if user data is missing
     }
   }, [user, navigate]);
+
+  // Handle input change
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchId(event.target.value);
+  };
+
+  // Redirect to purchase details when filtering by ID
+  const handleFilterById = () => {
+    console.log(searchId);
+    if (searchId.trim()) {
+      navigate(`/profile/purchase-history/${searchId.trim()}`, { state: { user } });
+    }
+  };
 
   const { loading, error, data } = useQuery<QueryResponse>(GET_USER_PURCHASES, {
     variables: { userId },
@@ -61,7 +73,21 @@ function PurchaseHistory() {
   return (
     <div className='purchase-history'>
       <h1>{user?.username.toUpperCase()}</h1>
-      <h2>Purchase History</h2>
+      <div>
+        <h2>Purchase History</h2>
+        <div className='filter-container'>
+          <input
+            type='text'
+            className='filter-input'
+            placeholder='Enter Purchase ID...'
+            value={searchId}
+            onChange={handleInputChange}
+          />
+          <button className='filter-by-id-button' onClick={handleFilterById}>
+            Filter
+          </button>
+        </div>
+      </div>
       {data?.user?.purchases.length === 0 ? (
         <p className='no-purchases'>No purchases found.</p>
       ) : (

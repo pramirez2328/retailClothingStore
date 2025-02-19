@@ -11,7 +11,7 @@ import Login from './components/Auth/Login';
 import Register from './components/Auth/Register';
 import Profile from './components/Auth/Profile';
 import PurchaseHistory from './components/PurchaseHistory/PurchaseHistory';
-
+import SinglePurchase from './components/SinglePurchase/SinglePurchase';
 import './App.css';
 
 // Function to check if user is authenticated
@@ -40,6 +40,10 @@ function App() {
               <Route path='/register' element={<Register />} />
               <Route path='/profile' element={<ProtectedRoute element={<Profile />} />} />
               <Route path='/profile/purchase-history' element={<ProtectedRoute element={<PurchaseHistory />} />} />
+              <Route
+                path='/profile/purchase-history/:purchaseId'
+                element={<ProtectedRoute element={<SinglePurchase />} />}
+              />
               <Route path='*' element={<NotFoundPage />} />
             </Routes>
           </main>
