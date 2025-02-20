@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import './ThankYouPage.css';
 import { useCart } from '../Context/CartProvider';
 
-function ThankYou() {
+function ThankYouPage() {
   const { clearCart, currentCart } = useCart();
   const [orderId, setOrderId] = useState('');
 
@@ -56,4 +56,4 @@ function ThankYou() {
   );
 }
 
-export default ThankYou;
+export default ThankYouPage;
