@@ -50,15 +50,16 @@
 
 /* Item List */
 .purchase-card ol {
-  margin-left: 1rem;
+  list-style-position: inside;
+  text-align: center;
 }
 
-.purchase-card ul li {
-  padding: 5px 0;
+.purchase-card ol li {
+  margin: 1rem 0;
   border-bottom: 1px solid #e0e0e0;
 }
 
-.purchase-card ul li:last-child {
+.purchase-card ol li:last-child {
   border-bottom: none;
 }
 
@@ -67,4 +68,25 @@
   text-align: center;
   color: #888;
   font-style: italic;
+}
+
+.filter-container {
+  margin-bottom: 1rem;
+}
+
+.filter-input {
+  padding: 0.4rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.filter-by-id-button {
+  padding: 0.5rem 1.5rem;
+  background-color: rgb(255, 36, 73);
+  color: white;
+  border: none;
+  margin-left: 4px;
+  border-radius: 4px;
+  cursor: pointer;
 }

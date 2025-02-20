@@ -54,16 +54,16 @@ const Profile = () => {
   return (
     <div className='profile-container'>
       <div className='profile-box'>
-        <h2>Profile</h2>
+        <h3 className='profile'>Profile</h3>
         {user ? (
           <>
             <h3>Welcome {user.username}!</h3>
             <p className='profile-details'>Email: {user.email}</p>
             <p className='profile-details'>User #: {user._id}</p>
-            <h3>Purchase History</h3>
+            <p className='profile-details'>Purchase History:</p>
 
             {user.purchases.length > 0 ? (
-              <p className='purchase-length'>You have {user.purchases.length} purchases</p>
+              <h3 className='purchase-length'>You have {user.purchases.length} purchases</h3>
             ) : (
               <p>No purchases found.</p>
             )}

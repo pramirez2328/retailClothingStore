@@ -48,10 +48,15 @@ function SinglePurchase() {
 
   return (
     <div className='purchase-details'>
-      <h2>Purchase Details</h2>
-      <button className='back-button' onClick={() => navigate('/profile/purchase-history', { state: { user } })}>
-        Back to Purchases
-      </button>
+      <div>
+        <h2>Purchase Details</h2>
+        <button
+          className='back-to-purchases-button'
+          onClick={() => navigate('/profile/purchase-history', { state: { user } })}
+        >
+          Back to Purchases
+        </button>
+      </div>
       <div className='purchase-card'>
         <h3>Order ID: {purchase.purchaseId}</h3>
         <p className='purchase-amount'>
