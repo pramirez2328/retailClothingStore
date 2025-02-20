@@ -12,11 +12,15 @@ const Login = () => {
   const navigate = useNavigate();
 
   const handleLogin = async (e: React.FormEvent) => {
+    // Prevent the default form submission behavior
     e.preventDefault();
+
     try {
+      // Call the login API
+      // Assuming the API returns a token and user data
       const { token } = await loginUser(email, password);
       localStorage.setItem('token', token);
-      setIsAuthenticated(true); // ✅ Update authentication state in context
+      setIsAuthenticated(true);
       navigate('/profile');
     } catch (err) {
       setError('Invalid credentials');

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { registerUser } from '../../api';
-import { useCart } from '../Context/CartProvider'; // ✅ Import useCart
+import { useCart } from '../Context/CartProvider';
 import './AuthStyles/Register.css';
 
 const Register = () => {
@@ -9,19 +9,19 @@ const Register = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
-  const { setIsAuthenticated } = useCart(); // ✅ Use setIsAuthenticated from Context
+  const { setIsAuthenticated } = useCart();
   const navigate = useNavigate();
 
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
+      // Call the register API
       const response = await registerUser(username, email, password);
 
       if (response.token) {
-        // ✅ Ensure token exists before setting it
         localStorage.setItem('token', response.token);
-        setIsAuthenticated(true); // ✅ Update authentication state in context
-        navigate('/profile'); // ✅ Redirect to Profile
+        setIsAuthenticated(true);
+        navigate('/profile');
       } else {
         setMessage('❌ Registration failed. No token received.');
         console.error('Registration error: No token received from backend');

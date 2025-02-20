@@ -8,7 +8,7 @@ function ThankYou() {
 
   const sendPurchaseToBackend = async () => {
     try {
-      const token = localStorage.getItem('token'); // ✅ Get JWT token
+      const token = localStorage.getItem('token'); // Get JWT token
       if (!token) {
         console.error('🚨 No authentication token found. User must be logged in.');
         return;
