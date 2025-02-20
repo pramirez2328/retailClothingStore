@@ -1,6 +1,6 @@
 // main.tsx
 
-// import { StrictMode } from 'react';
+import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { ApolloProvider, ApolloClient, InMemoryCache } from '@apollo/client';
 import './index.css';
@@ -14,7 +14,9 @@ const client = new ApolloClient({
 
 // Wrap App with ApolloProvider
 createRoot(document.getElementById('root')!).render(
-  <ApolloProvider client={client}>
-    <App />
-  </ApolloProvider>
+  <StrictMode>
+    <ApolloProvider client={client}>
+      <App />
+    </ApolloProvider>
+  </StrictMode>
 );
