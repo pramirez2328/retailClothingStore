@@ -24,6 +24,8 @@ const Profile = () => {
 
     const fetchProfile = async () => {
       try {
+        // Get the token from localStorage
+        // Assuming the token is stored in localStorage after login
         const token = localStorage.getItem('token');
         if (!token) {
           navigate('/login');
@@ -42,6 +44,7 @@ const Profile = () => {
   }, [isAuthenticated, navigate]);
 
   const handleLogout = () => {
+    // Clear the token from localStorage and update authentication state
     localStorage.removeItem('token');
     setIsAuthenticated(false);
     navigate('/login');
