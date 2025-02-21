@@ -8,7 +8,7 @@ import App from './App.tsx';
 
 // Initialize Apollo Client
 const client = new ApolloClient({
-  uri: 'http://localhost:5001/graphql', // GraphQL API endpoint
+  uri: 'https://clothing-store-backend-wjj8.onrender.com/graphql', // GraphQL API endpoint
   cache: new InMemoryCache() // Enable caching for better performance
 });
 

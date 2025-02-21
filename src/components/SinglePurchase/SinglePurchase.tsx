@@ -58,7 +58,11 @@ function SinglePurchase() {
         </button>
       </div>
       <div className='purchase-card'>
-        <h3>Order ID: {purchase.purchaseId}</h3>
+        <div>
+          <h4>Order ID: </h4>
+          <h3>{purchase.purchaseId}</h3>
+        </div>
+
         <p className='purchase-amount'>
           Total Amount: <span>${purchase.totalAmount}</span>
         </p>

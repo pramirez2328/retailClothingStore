@@ -32,4 +32,8 @@
   .purchase-details {
     width: 95%;
   }
+
+  .purchase-card div {
+    display: inline;
+  }
 }

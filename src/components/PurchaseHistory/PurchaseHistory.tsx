@@ -93,7 +93,11 @@ function PurchaseHistory() {
       ) : (
         data?.user?.purchases.map((purchase: Purchase) => (
           <div key={purchase.purchaseId} className='purchase-card'>
-            <h3>Order ID: {purchase.purchaseId}</h3>
+            <div>
+              <h4>Purchase ID: </h4>
+              <h3>{purchase.purchaseId}</h3>
+            </div>
+
             <p className='purchase-amount'>
               Total Amount: <span>${purchase.totalAmount}</span>
             </p>

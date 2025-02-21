@@ -29,13 +29,12 @@
 }
 
 /* Purchase Info */
-.purchase-card h3 {
+.purchase-card div h3 {
   text-align: center;
-  margin: 1rem 0;
+  margin: 0 0 1rem 0;
   font-size: 1.1rem;
   color: rgb(255, 36, 73);
   border-bottom: solid 2px #e0e0e0;
-
   padding: 0.5rem 0;
   width: 100%;
 }
@@ -89,4 +88,14 @@
   margin-left: 4px;
   border-radius: 4px;
   cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .purchase-card div {
+    display: inline;
+  }
+
+  .purchase-card div h3 {
+    font-size: 1rem;
+  }
 }

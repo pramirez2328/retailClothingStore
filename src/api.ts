@@ -9,7 +9,7 @@ export const loginUser = async (email: string, password: string) => {
   });
 
   if (!response.ok) throw new Error('Invalid credentials');
-  console.log('response', response);
+
   return response.json(); // Returns JWT Token
 };
 
