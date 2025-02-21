@@ -25,7 +25,8 @@
     /* Module resolution */
     "baseUrl": "./",
     "paths": {
-      "@components/*": ["src/components/*"]
+      "@components/*": ["src/components/*"],
+      "ThankYouPage": ["src/components/ThankYouPage/ThankYouPage"]
     }
   },
   "include": ["src"]
