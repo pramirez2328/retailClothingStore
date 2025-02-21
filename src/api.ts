@@ -1,18 +1,20 @@
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 export const loginUser = async (email: string, password: string) => {
-  const response = await fetch(`${API_BASE_URL}/auth/login`, {
+  console.log('API_BASE_URL', API_BASE_URL);
+  const response = await fetch(`${API_BASE_URL}/api/auth/login`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ email, password })
   });
 
   if (!response.ok) throw new Error('Invalid credentials');
+  console.log('response', response);
   return response.json(); // Returns JWT Token
 };
 
 export const registerUser = async (username: string, email: string, password: string) => {
-  const response = await fetch(`${API_BASE_URL}/auth/register`, {
+  const response = await fetch(`${API_BASE_URL}/api/auth/register`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ username, email, password })
@@ -23,7 +25,7 @@ export const registerUser = async (username: string, email: string, password: st
 };
 
 export const getProfile = async (token: string) => {
-  const response = await fetch(`${API_BASE_URL}/auth/profile`, {
+  const response = await fetch(`${API_BASE_URL}/api/auth/profile`, {
     headers: { Authorization: `Bearer ${token}` }
   });
 
