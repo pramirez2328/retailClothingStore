@@ -14,7 +14,7 @@ function ThankYouPage() {
         return;
       }
 
-      const response = await fetch('http://localhost:5001/api/purchases/create', {
+      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/purchases/create`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
