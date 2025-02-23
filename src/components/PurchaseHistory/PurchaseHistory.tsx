@@ -2,35 +2,8 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 import { GET_USER_PURCHASES } from '../../graphql/queries';
 import { useEffect, useState } from 'react';
+import { User, QueryResponse, Purchase, Item } from '../../types';
 import './PurchaseHistory.css';
-
-// Define TypeScript Types
-interface Item {
-  productId: number;
-  title: string;
-  price: number;
-  orderQty: number;
-  selectedSize?: string;
-  thumbnail?: string;
-}
-
-interface Purchase {
-  purchaseId: string;
-  totalAmount: number;
-  createdAt: string;
-  items: Item[];
-}
-
-interface User {
-  _id: string;
-  username: string;
-  email: string;
-  purchases: Purchase[];
-}
-
-interface QueryResponse {
-  user: User;
-}
 
 function PurchaseHistory() {
   const location = useLocation();
@@ -45,7 +18,9 @@ function PurchaseHistory() {
     } else {
       navigate('/'); // Redirect to home if user data is missing
     }
-  }, [user, navigate]);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user]);
 
   // Handle input change
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -54,7 +29,6 @@ function PurchaseHistory() {
 
   // Redirect to purchase details when filtering by ID
   const handleFilterById = () => {
-    console.log(searchId);
     if (searchId.trim()) {
       navigate(`/profile/purchase-history/${searchId.trim()}`, { state: { user } });
     }
@@ -67,8 +41,6 @@ function PurchaseHistory() {
 
   if (loading) return <p className='loading'>Loading purchases...</p>;
   if (error) return <p className='error'>Error fetching purchases: {error.message}</p>;
-
-  console.log(data);
 
   return (
     <div className='purchase-history'>
@@ -99,7 +71,7 @@ function PurchaseHistory() {
             </div>
 
             <p className='purchase-amount'>
-              Total Amount: <span>${purchase.totalAmount}</span>
+              Total Amount: <span>${purchase.totalAmount?.toFixed(2)}</span>
             </p>
             <p className='purchase-date'>Purchased On: {purchase.createdAt}</p>
             <h4>Items:</h4>

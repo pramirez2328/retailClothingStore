@@ -14,18 +14,12 @@ function Validation({ setIsOrderPlaced }: { setIsOrderPlaced: (isOrderPlaced: bo
     const formErrors: Record<string, string> = {};
 
     // Basic validation
-    const requiredFields = ['first-name', 'last-name', 'email', 'address', 'city', 'state', 'zip'];
+    const requiredFields = ['first-name', 'last-name', 'address', 'city', 'state', 'zip'];
     requiredFields.forEach((field) => {
       if (!formData.get(field)?.toString().trim()) {
         formErrors[field] = `${field.replace('-', ' ')} is required`;
       }
     });
-
-    // Email validation
-    const email = formData.get('email')?.toString() || '';
-    if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      formErrors.email = 'Please enter a valid email address';
-    }
 
     // Credit card validation
     if (paymentMethod) {
@@ -67,11 +61,6 @@ function Validation({ setIsOrderPlaced }: { setIsOrderPlaced: (isOrderPlaced: bo
           <label htmlFor='last-name'>Last Name</label>
           <input type='text' id='last-name' name='last-name' />
           {errors['last-name'] && <p className='error'>{errors['last-name']}</p>}
-        </div>
-        <div className='form-group'>
-          <label htmlFor='email'>Email</label>
-          <input type='email' id='email' name='email' />
-          {errors['email'] && <p className='error'>{errors['email']}</p>}
         </div>
         <div className='form-group'>
           <label htmlFor='address'>Address</label>
@@ -117,9 +106,15 @@ function Validation({ setIsOrderPlaced }: { setIsOrderPlaced: (isOrderPlaced: bo
             </div>
             <div className='form-group'>
               <label htmlFor='expiration-date'>Expiration Date</label>
-              <input type='date' id='expiration-date' name='expiration-date' />
+              <input
+                type='date'
+                id='expiration-date'
+                name='expiration-date'
+                min={new Date().toISOString().split('T')[0]} // Restrict to today or future
+              />
               {errors['expiration-date'] && <p className='error'>{errors['expiration-date']}</p>}
             </div>
+
             <div className='form-group'>
               <label htmlFor='cvv'>CVV</label>
               <input type='text' id='cvv' name='cvv' maxLength={3} placeholder='123' />

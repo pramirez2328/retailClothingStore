@@ -1,32 +1,9 @@
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 import { GET_PURCHASE_BY_ID } from '../../graphql/queries';
+import { User, PurchaseQueryResponse } from '../../types';
+import Loading from '../Loading/Loading';
 import './SinglePurchase.css';
-
-interface Item {
-  title: string;
-  price: number;
-  orderQty: number;
-  thumbnail?: string;
-}
-
-interface Purchase {
-  purchaseId: string;
-  totalAmount: number;
-  createdAt: string;
-  items: Item[];
-}
-
-interface User {
-  _id: string;
-  username: string;
-  email: string;
-  purchases: Purchase[];
-}
-
-interface PurchaseQueryResponse {
-  purchase: Purchase;
-}
 
 function SinglePurchase() {
   const { purchaseId } = useParams<{ purchaseId?: string }>();
@@ -39,7 +16,12 @@ function SinglePurchase() {
     skip: !purchaseId
   });
 
-  if (loading) return <p className='loading'>Loading purchase details...</p>;
+  if (loading)
+    return (
+      <p className='loading'>
+        Loading purchase details... <Loading />
+      </p>
+    );
   if (error) return <p className='error'>Error fetching purchase: {error.message}</p>;
 
   if (!data?.purchase) return <p className='no-purchase'>Purchase not found.</p>;
@@ -64,7 +46,7 @@ function SinglePurchase() {
         </div>
 
         <p className='purchase-amount'>
-          Total Amount: <span>${purchase.totalAmount}</span>
+          Total Amount: <span>${purchase.totalAmount?.toFixed(2)}</span>
         </p>
         <p className='purchase-date'>Purchased On: {purchase.createdAt}</p>
         <h4>Items:</h4>

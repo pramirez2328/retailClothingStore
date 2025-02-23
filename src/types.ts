@@ -45,3 +45,32 @@ export type Product = {
 export type ProductsResponse = {
   products: Product[];
 };
+
+export interface Item {
+  title: string;
+  price: number;
+  orderQty: number;
+  thumbnail?: string;
+}
+
+export interface Purchase {
+  purchaseId: string;
+  totalAmount: number;
+  createdAt: string;
+  items: Item[];
+}
+
+export interface User {
+  _id: string;
+  username: string;
+  email: string;
+  purchases: Purchase[];
+}
+
+export interface PurchaseQueryResponse {
+  purchase: Purchase;
+}
+
+export interface QueryResponse {
+  user: User;
+}

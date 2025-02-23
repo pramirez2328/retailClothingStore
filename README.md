@@ -70,17 +70,21 @@ Follow these steps to run the project locally:
 
 2. **Install Dependencies**:
 
-   ```bash
-   npm install
-   ```
+```bash
+Node version 22 or higher
+```
 
-3. **Start the Development Server**:
+```bash
+npm install
+```
+
+1. **Start the Development Server**:
 
    ```bash
    npm run dev
    ```
 
-4. Open your browser and navigate to [http://localhost:3000](http://localhost:3000).
+2. Open your browser and navigate to [http://localhost:3000](http://localhost:3000).
 
 ---
 
