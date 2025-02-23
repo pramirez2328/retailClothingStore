@@ -3,6 +3,7 @@ import { getProfile } from '../../api';
 import { useNavigate } from 'react-router-dom';
 import { useCart } from '../Context/CartProvider';
 import { useApolloClient } from '@apollo/client';
+import Loading from '../Loading/Loading';
 import './AuthStyles/Profile.css';
 
 interface User {
@@ -43,7 +44,7 @@ const Profile = () => {
     fetchProfile();
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [user]);
 
   const handleLogout = () => {
     // Clear the token from localStorage and update authentication state
@@ -86,7 +87,10 @@ const Profile = () => {
             </div>
           </>
         ) : (
-          <p>Loading...</p>
+          <>
+            <Loading />
+            <p>...Loading!</p>
+          </>
         )}
       </div>
     </div>
