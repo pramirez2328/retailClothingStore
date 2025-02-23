@@ -41,7 +41,7 @@ const Profile = () => {
     };
 
     fetchProfile();
-  }, [isAuthenticated, navigate]);
+  }, [isAuthenticated]);
 
   const handleLogout = () => {
     // Clear the token from localStorage and update authentication state
