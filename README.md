@@ -14,6 +14,9 @@ This project is a modern online store for **clothes**, **furniture**, and **home
 - **Checkout Page with Payment Validation**: Includes payment validation to ensure a secure checkout process.
 - **Fetch API Integration**: Fetches product data from the [DummyJSON API](https://dummyjson.com/).
 - **Add-to-Cart Feature**: Allows users to add products to their cart and manage their selections seamlessly.
+- **Apollo Client + GraphQL**: Fetching and managing data efficiently.
+- **User Authentication**: Supports user login, registration, and profile management.
+- **Purchase History**: Displays a user's past purchases and allows viewing single purchase details.
 
 ---
 
@@ -22,7 +25,6 @@ This project is a modern online store for **clothes**, **furniture**, and **home
 Overview of the key directories and files:
 
 ```
-
 src
 |── assets # Static assets (e.g., images, fonts)
 ├── components # Reusable components
@@ -33,10 +35,17 @@ src
 │ ├── Header # Header and navigation
 │ ├── Home # Homepage component
 │ ├── Loading # Loading spinner component
+│ ├── Login # Login component
+│ ├── Register # Register component
+│ ├── Profile # User profile component
+│ ├── PurchaseHistory # List of user purchases
+│ ├── SinglePurchase # Detailed view of a single purchase
 │ ├── NotFoundPage # 404 error page
 │ ├── ProductDetailPage # Product details view
 │ ├── ProductListPage # Product listing for categories
 │ ├── thankYouPage # Post-checkout confirmation page
+├── graphql # GraphQL queries and mutations
+│ ├── queries.ts # GraphQL queries
 ├── App.css # Main application styling
 ├── App.tsx # Application entry point
 ├── api.ts # API calls and services
@@ -90,17 +99,67 @@ Follow these steps to run the project locally:
 - **Vite**
 - **React Router DOM**
 - **Context API**
+- **Apollo Client + GraphQL**
 - **Vanilla CSS**
 - **DummyJSON API**: Provides product data for the store.
 
 ---
 
-## API Integration
+## GraphQL Integration
 
-The project fetches product data from the [DummyJSON API](https://dummyjson.com/). The API is used to populate product lists, product details, and more.
+The project integrates GraphQL for efficient data fetching.
+
+### **GraphQL Queries**
+
+- **Get All Purchases for a User**
+
+  ```ts
+  export const GET_USER_PURCHASES = gql`
+    query GetUserPurchases($userId: ID!) {
+      user(id: $userId) {
+        username
+        email
+        purchases {
+          purchaseId
+          totalAmount
+          createdAt
+          items {
+            title
+            price
+            orderQty
+            thumbnail
+          }
+        }
+      }
+    }
+  `;
+  ```
+
+- **Get Single Purchase by ID**
+  ```ts
+  export const GET_PURCHASE_BY_ID = gql`
+    query GetPurchase($purchaseId: String!) {
+      purchase(purchaseId: $purchaseId) {
+        purchaseId
+        totalAmount
+        createdAt
+        items {
+          title
+          price
+          orderQty
+          thumbnail
+        }
+      }
+    }
+  `;
+  ```
 
 ---
 
-## Add-to-Cart Functionality
+## License
 
-Users can add products to their cart directly from the product listing or detail pages. The cart is managed globally using the **Context API**, allowing for a seamless shopping experience across the application.
+This project is licensed under the MIT License.
+
+---
+
+**Maintainer**: Pedro Ramirez
