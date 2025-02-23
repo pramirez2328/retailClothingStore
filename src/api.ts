@@ -25,12 +25,37 @@ export const registerUser = async (username: string, email: string, password: st
 };
 
 export const getProfile = async (token: string) => {
-  const response = await fetch(`${API_BASE_URL}/api/auth/profile`, {
-    headers: { Authorization: `Bearer ${token}` }
-  });
+  try {
+    // 🔹 Check if token is expired BEFORE making the API call
+    const payload = JSON.parse(atob(token.split('.')[1])); // Decode JWT payload
+    if (payload.exp * 1000 < Date.now()) {
+      throw new Error('Token expired');
+    }
 
-  if (!response.ok) throw new Error('Unauthorized');
-  return response.json();
+    const response = await fetch(`${API_BASE_URL}/api/auth/profile`, {
+      headers: { Authorization: `Bearer ${token}` }
+    });
+
+    // 🔹 If response is not OK, check status codes explicitly
+    if (!response.ok) {
+      if (response.status === 401) {
+        throw new Error('Unauthorized - Token Invalid');
+      }
+      if (response.status === 403) {
+        throw new Error('Forbidden - Access Denied');
+      }
+      throw new Error(`HTTP Error: ${response.status}`);
+    }
+
+    return await response.json();
+  } catch (err) {
+    console.error('Error fetching profile:', err);
+
+    // 🔹 Ensure token is removed on failure
+    localStorage.removeItem('token');
+
+    throw err; // Rethrow to let the calling component handle the logout
+  }
 };
 
 export const fetchData = async (endpoint: string) => {

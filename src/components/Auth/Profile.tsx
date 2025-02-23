@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { getProfile } from '../../api';
 import { useNavigate } from 'react-router-dom';
 import { useCart } from '../Context/CartProvider';
+import { useApolloClient } from '@apollo/client';
 import './AuthStyles/Profile.css';
 
 interface User {
@@ -15,6 +16,7 @@ const Profile = () => {
   const [user, setUser] = useState<User | null>(null);
   const { isAuthenticated, setIsAuthenticated } = useCart();
   const navigate = useNavigate();
+  const client = useApolloClient();
 
   useEffect(() => {
     if (!isAuthenticated) {
@@ -24,29 +26,30 @@ const Profile = () => {
 
     const fetchProfile = async () => {
       try {
-        // Get the token from localStorage
-        // Assuming the token is stored in localStorage after login
         const token = localStorage.getItem('token');
         if (!token) {
-          navigate('/login');
+          handleLogout(); // Ensure user is logged out properly
           return;
         }
+
         const data = await getProfile(token);
         setUser(data);
       } catch (err) {
-        localStorage.removeItem('token');
-        navigate('/login');
         console.error('Error fetching profile:', err);
+        handleLogout(); // Logout on API failure
       }
     };
 
     fetchProfile();
-  }, [isAuthenticated]);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const handleLogout = () => {
     // Clear the token from localStorage and update authentication state
     localStorage.removeItem('token');
     setIsAuthenticated(false);
+    client.clearStore(); // Clear Apollo Client cache
     navigate('/login');
   };
 

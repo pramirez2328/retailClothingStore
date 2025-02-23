@@ -16,9 +16,11 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      // Call the login API
-      // Assuming the API returns a token and user data
       const { token } = await loginUser(email, password);
+      // clear any old/stale token
+      localStorage.removeItem('token');
+
+      // set the token in localStorage
       localStorage.setItem('token', token);
       setIsAuthenticated(true);
       navigate('/profile');
