@@ -9,7 +9,6 @@ import './AuthStyles/Profile.css';
 
 const Profile = () => {
   const [user, setUser] = useState<User | null>(null);
-  const [purchaseHistory, setPurchaseHistory] = useState(user?.purchases?.length || 0);
   const { isAuthenticated, setIsAuthenticated } = useCart();
   const navigate = useNavigate();
   const client = useApolloClient();
@@ -30,7 +29,6 @@ const Profile = () => {
 
         const data = await getProfile(token);
         setUser(data);
-        setPurchaseHistory(data.purchases.length);
       } catch (err) {
         console.error('Error fetching profile:', err);
         handleLogout(); // Logout on API failure
@@ -40,7 +38,7 @@ const Profile = () => {
     fetchProfile();
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [purchaseHistory]);
+  }, [user?.purchases?.length]);
 
   const handleLogout = () => {
     // Clear the token from localStorage and update authentication state
@@ -51,8 +49,9 @@ const Profile = () => {
   };
 
   const handlePurchaseHistory = () => {
-    navigate('/profile/purchase-history', { state: { user } });
+    navigate('/profile/purchase-history', { state: { userId: user?._id } });
   };
+  console.log(user?.purchases.length);
 
   return (
     <div className='profile-container'>
@@ -66,7 +65,7 @@ const Profile = () => {
             <p className='profile-details'>Purchase History:</p>
 
             {user.purchases.length > 0 ? (
-              <h3 className='purchase-length'>You have {purchaseHistory} purchases</h3>
+              <h3 className='purchase-length'>You have {user.purchases.length} purchases</h3>
             ) : (
               <p>No purchases found.</p>
             )}
