@@ -3,18 +3,13 @@ import { getProfile } from '../../api';
 import { useNavigate } from 'react-router-dom';
 import { useCart } from '../Context/CartProvider';
 import { useApolloClient } from '@apollo/client';
+import { User } from '../../types';
 import Loading from '../Loading/Loading';
 import './AuthStyles/Profile.css';
 
-interface User {
-  username: string;
-  email: string;
-  _id: string;
-  purchases: string[];
-}
-
 const Profile = () => {
   const [user, setUser] = useState<User | null>(null);
+  const [purchaseHistory, setPurchaseHistory] = useState(user?.purchases?.length || 0);
   const { isAuthenticated, setIsAuthenticated } = useCart();
   const navigate = useNavigate();
   const client = useApolloClient();
@@ -35,6 +30,7 @@ const Profile = () => {
 
         const data = await getProfile(token);
         setUser(data);
+        setPurchaseHistory(data.purchases.length);
       } catch (err) {
         console.error('Error fetching profile:', err);
         handleLogout(); // Logout on API failure
@@ -44,7 +40,7 @@ const Profile = () => {
     fetchProfile();
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user]);
+  }, []);
 
   const handleLogout = () => {
     // Clear the token from localStorage and update authentication state
@@ -58,6 +54,8 @@ const Profile = () => {
     navigate('/profile/purchase-history', { state: { user } });
   };
 
+  console.log(purchaseHistory, 'purchase history');
+
   return (
     <div className='profile-container'>
       <div className='profile-box'>
@@ -70,7 +68,7 @@ const Profile = () => {
             <p className='profile-details'>Purchase History:</p>
 
             {user.purchases.length > 0 ? (
-              <h3 className='purchase-length'>You have {user.purchases.length} purchases</h3>
+              <h3 className='purchase-length'>You have {purchaseHistory} purchases</h3>
             ) : (
               <p>No purchases found.</p>
             )}
