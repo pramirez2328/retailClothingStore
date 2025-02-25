@@ -40,7 +40,7 @@ const Profile = () => {
     fetchProfile();
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [purchaseHistory]);
 
   const handleLogout = () => {
     // Clear the token from localStorage and update authentication state
@@ -53,8 +53,6 @@ const Profile = () => {
   const handlePurchaseHistory = () => {
     navigate('/profile/purchase-history', { state: { user } });
   };
-
-  console.log(purchaseHistory, 'purchase history');
 
   return (
     <div className='profile-container'>
