@@ -38,7 +38,7 @@ const Profile = () => {
     fetchProfile();
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user?.purchases?.length]);
+  }, []);
 
   const handleLogout = () => {
     // Clear the token from localStorage and update authentication state

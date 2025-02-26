@@ -8,7 +8,8 @@ function ThankYouPage() {
 
   const sendPurchaseToBackend = async () => {
     try {
-      const token = localStorage.getItem('token'); // Get JWT token
+      // Get the token from localStorage
+      const token = localStorage.getItem('token');
       if (!token) {
         console.error('🚨 No authentication token found. User must be logged in.');
         return;
@@ -18,11 +19,10 @@ function ThankYouPage() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`
+          Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify({ items: currentCart })
+        body: JSON.stringify({ items: currentCart }),
       });
-
       const data = await response.json();
       if (response.ok) {
         console.log('✅ Purchase sent successfully:', data);
